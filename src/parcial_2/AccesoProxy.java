@@ -12,7 +12,7 @@ package parcial_2;
 public class AccesoProxy implements Operaciones{
     private static AccesoProxy instancia = null;
     private Master master=Master.laConstructora();
-    protected boolean validacion=false;
+    protected String validacion="false";
     protected String email="";
     
     public static AccesoProxy laConstructora(){
@@ -23,13 +23,45 @@ public class AccesoProxy implements Operaciones{
     }
     
     @Override
-    public boolean validacionDatos(String email, String password){
-        boolean respuesta=this.master.validacionDatos(email,password);
-        if(respuesta==true) {
+    public String validacionDatos(String email, String password){
+        String respuesta=this.master.validacionDatos(email,password);
+        if(respuesta.equals("true") || respuesta.equals("Movelo")) {
             validacion = respuesta;
             this.email=email;
         }
+        System.out.println(respuesta);
         return respuesta;
+    }
+
+    @Override
+    public String mostrarBicicletas(String emailBiciusuario) {
+        String respuesta="";
+        if(validacion.equals("true") && email.equals(emailBiciusuario)) {
+            respuesta = this.master.mostrarBicicletas(emailBiciusuario);
+        }else{
+            System.out.println("No tiene acceso!");
+        }
+        return respuesta;
+    }
+
+    @Override
+    public void addViaje() {
+
+    }
+
+    @Override
+    public void addRuta(String emailBiciusuario) {
+
+    }
+
+    @Override
+    public void eliminarRuta(String emailBiciusuario) {
+
+    }
+
+    @Override
+    public String botonPanico(String email, String mensaje) {
+        return null;
     }
 
     @Override
@@ -39,21 +71,32 @@ public class AccesoProxy implements Operaciones{
 
     @Override
     public void addEmpresa(String nombre, String nit, String email, String direccion, String password) {
-        
+        this.master.addEmpresa(nombre,nit,email,direccion,password);
+    }
+
+    @Override
+    public void addMoveloUser(String username, String email, String password) {
+        this.master.addMoveloUser(username,email,password);
     }
 
     @Override
     public void addBicicleta(String emailBiciusuario,Bicycle bike) {
-        if(validacion==true && email.equals(emailBiciusuario)){
+        if(validacion.equals("true") && email.equals(emailBiciusuario)){
             this.master.addBicicleta(emailBiciusuario,bike);
         }else{
-            System.out.println("No tienes acceso!"+email);
+            System.out.println("No tienes acceso!");
         }
     }
 
     @Override
     public void eliminarBiciusuario(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(validacion.equals("true") && email.equals(email)){
+            this.master.eliminarBiciusuario(email);
+        }else if(validacion.equals("Movelo")) {
+            this.master.eliminarBiciusuario(email);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
@@ -72,6 +115,11 @@ public class AccesoProxy implements Operaciones{
     }
 
     @Override
+    public Bicycle buscarBicicleta(String email) {
+        return null;
+    }
+
+    @Override
     public void addMiembroEmpresa(String emailEmpresa, String emailUsuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -83,7 +131,8 @@ public class AccesoProxy implements Operaciones{
 
     @Override
     public String mostrarMiembros() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       String respuesta=this.master.mostrarMiembros();
+       return respuesta;
     }
 
     @Override

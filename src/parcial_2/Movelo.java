@@ -70,7 +70,7 @@ public class Movelo {
     }
     
     public String mostrarInformacion() {
-        return "Datos Movelo:\n\n Username: "+username+"\nEmail: "+email+"\nPassword: "+password;
+        return "Datos Movelo:\nUsername: "+username+"\nEmail: "+email+"\nPassword: "+password+"\n\n";
     }
     
     public final int verificarLetrasMayusculas(String clave) {

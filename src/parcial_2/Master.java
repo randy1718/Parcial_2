@@ -30,23 +30,35 @@ public class Master implements Operaciones{
 
     @Override
     public void addEmpresa(String nombre, String nit, String email, String direccion, String password) {
+        Empresa company=new Empresa(nombre,email,password,direccion,nit);
+        miembros.add(company);
+    }
 
+    @Override
+    public void addMoveloUser(String username, String email, String password) {
+        MoveloAdapter movelo=new MoveloAdapter(username,email,password);
+        miembros.add(movelo);
     }
 
     @Override
     public void addBicicleta(String emailBiciusuario,Bicycle bike) {
         for(int i=0;i<miembros.size();i++){
-            Biciusuario user= (Biciusuario) miembros.get(i);
-            if (user.getEmail().equals(emailBiciusuario)) {
+            if (miembros.get(i).getEmail().equals(emailBiciusuario)) {
+                Biciusuario user= (Biciusuario) miembros.get(i);
                 user.addBicicleta(bike);
-                System.out.println("Bicicleta añadida correctamente!"+emailBiciusuario);
+                System.out.println("Bicicleta añadida correctamente al biciusuario con correo "+emailBiciusuario+" !");
             }
         }
     }
 
     @Override
     public void eliminarBiciusuario(String email) {
-
+        for(int i=0;i<miembros.size();i++){
+            if (miembros.get(i).getEmail().equals(email)) {
+                miembros.remove(miembros.get(i));
+                System.out.println("Biciusuario con email "+email+" Eliminado!");
+            }
+        }
     }
 
     @Override
@@ -71,6 +83,11 @@ public class Master implements Operaciones{
     }
 
     @Override
+    public Bicycle buscarBicicleta(String email) {
+        return null;
+    }
+
+    @Override
     public void addMiembroEmpresa(String emailEmpresa, String emailUsuario) {
 
     }
@@ -82,7 +99,13 @@ public class Master implements Operaciones{
 
     @Override
     public String mostrarMiembros() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String respuesta="";
+        for(int i=0;i<miembros.size();i++){
+            respuesta=respuesta+miembros.get(i).mostrarDatos();
+
+        }
+        System.out.println(respuesta);
+        return respuesta;
     }
 
     @Override
@@ -136,13 +159,16 @@ public class Master implements Operaciones{
     }
 
     @Override
-    public boolean validacionDatos(String email, String password) {
-        boolean respuesta=false;
+    public String validacionDatos(String email, String password) {
+        String respuesta="false";
         try{
             for(int i=0;i<miembros.size();i++){
                 Stakeholder miembro=miembros.get(i);
-                if(miembro.getEmail().equals(email) && miembro.getPassword().equals(password)){
-                    respuesta=true;
+                if(miembro.getEmail().equals(email) && miembro.getPassword().equals(password) && miembro instanceof MoveloAdapter){
+                    respuesta="Movelo";
+                    break;
+                }else if(miembro.getEmail().equals(email) && miembro.getPassword().equals(password)){
+                    respuesta="true";
                     break;
                 }
             }
@@ -152,5 +178,30 @@ public class Master implements Operaciones{
 
         return respuesta;
     }
-    
+
+    @Override
+    public String mostrarBicicletas(String emailBiciusuario) {
+        return null;
+    }
+
+    @Override
+    public void addViaje() {
+
+    }
+
+    @Override
+    public void addRuta(String emailBiciusuario) {
+
+    }
+
+    @Override
+    public void eliminarRuta(String emailBiciusuario) {
+
+    }
+
+    @Override
+    public String botonPanico(String email, String mensaje) {
+        return null;
+    }
+
 }

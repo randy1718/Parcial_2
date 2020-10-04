@@ -95,7 +95,7 @@ public class Biciusuario implements Stakeholder{
 
     @Override
     public String mostrarDatos() {
-        return "";
+        return "Datos Biciusuario: \n"+"Nombre: "+name+"\nEmail: "+correo+"\n\n";
     }
 
     @Override
