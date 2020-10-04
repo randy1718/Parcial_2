@@ -9,11 +9,16 @@ package parcial_2;
  *
  * @author Randy
  */
-public class Bicicleta {
+public class Bicicleta implements Bicycle {
     String serial,marca,color;
     public Bicicleta(String serial, String marca, String color){
         this.serial=serial;
         this.marca=marca;
         this.color=color;
+    }
+
+    @Override
+    public String showBicycle() {
+        return "Bicicleta "+serial+marca+color;
     }
 }

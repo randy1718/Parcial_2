@@ -12,7 +12,7 @@ package parcial_2;
 public interface Operaciones {
     public void addBiciusuario(String nombre,String email,String password, String fechaNacimiento);
     public void addEmpresa(String nombre,String nit, String email, String direccion,String password);
-    public void addBicicleta(String emailBiciusuario,Bicicleta bike);
+    public void addBicicleta(String emailBiciusuario,Bicycle bike);
     public void eliminarBiciusuario(String email);
     public void eliminarEmpresa(String nit);
     public Stakeholder buscarBiciusuario(String email);
@@ -30,6 +30,6 @@ public interface Operaciones {
     public void actualizarNombreBiciusuario(String nombreNuevo);
     public void actualizarEmailBiciusuario(String emailNuevo);
     public void actualizarPasswordBiciusuario(String claveNueva);
-    public boolean validacionDatos(String name, String password);
+    public boolean validacionDatos(String email, String password);
     
 }

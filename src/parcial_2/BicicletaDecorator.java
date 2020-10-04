@@ -9,6 +9,15 @@ package parcial_2;
  *
  * @author Randy
  */
-public class BicicletaDecorator {
-    
+public abstract class BicicletaDecorator implements Bicycle {
+    protected Bicicleta bicycle;
+
+    public BicicletaDecorator(Bicicleta bike){
+        bicycle=bike;
+    }
+
+    @Override
+    public String showBicycle() {
+        return this.bicycle.showBicycle();
+    }
 }

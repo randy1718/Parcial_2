@@ -13,6 +13,7 @@ public class AccesoProxy implements Operaciones{
     private static AccesoProxy instancia = null;
     private Master master=Master.laConstructora();
     protected boolean validacion=false;
+    protected String email="";
     
     public static AccesoProxy laConstructora(){
         if(instancia==null){
@@ -22,9 +23,12 @@ public class AccesoProxy implements Operaciones{
     }
     
     @Override
-    public boolean validacionDatos(String name, String password){
-        boolean respuesta=this.master.validacionDatos(name,password);
-        validacion=respuesta;
+    public boolean validacionDatos(String email, String password){
+        boolean respuesta=this.master.validacionDatos(email,password);
+        if(respuesta==true) {
+            validacion = respuesta;
+            this.email=email;
+        }
         return respuesta;
     }
 
@@ -39,12 +43,11 @@ public class AccesoProxy implements Operaciones{
     }
 
     @Override
-    public void addBicicleta(String emailBiciusuario,Bicicleta bike) {
-        if(validacion==true){
+    public void addBicicleta(String emailBiciusuario,Bicycle bike) {
+        if(validacion==true && email.equals(emailBiciusuario)){
             this.master.addBicicleta(emailBiciusuario,bike);
-            System.out.println("Bicicleta añadida correctamente!");
         }else{
-            System.out.println("No tienes acceso!");
+            System.out.println("No tienes acceso!"+email);
         }
     }
 

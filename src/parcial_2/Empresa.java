@@ -38,7 +38,7 @@ public class Empresa implements Stakeholder{
            miembros =new ArrayList<>();
         }else{
            JPanel panel=new JPanel();
-           JOptionPane.showMessageDialog(panel,"La empresa "+name+" tiene la contraseña o el correo invalidos","Error", JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(panel,"La empresa "+nombre+" tiene la contraseña o el correo invalidos","Error", JOptionPane.ERROR_MESSAGE);
         }           
     }
 

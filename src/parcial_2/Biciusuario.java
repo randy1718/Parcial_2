@@ -5,26 +5,48 @@
  */
 package parcial_2;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author Randy
  */
 public class Biciusuario implements Stakeholder{
-    private ArrayList<Bicicleta> bicicletas;
+    private ArrayList<Bicycle> bicicletas;
     private String name,correo,clave,date;
     private String REG_EXP = "\\¿+|\\?+|\\°+|\\¬+|\\|+|\\!+|\\#+|\\$+|\\)+|"
                 + "\\%+|\\&+|\\(+|\\=+|\\’+|\\¡+|\\++|\\*+|\\~+|\\[+|\\]"
                 + "+|\\{+|\\}+|\\^+|\\<+|\\>+|\\/+|\\\"+";
     
     public Biciusuario(String nombre,String email,String password, String fechaNacimiento){
-        name=nombre;
-        correo=email;
-        clave=password;
-        date=fechaNacimiento;
-        bicicletas=new ArrayList<>();
-        System.out.println("creando...");
+        try {
+            Pattern pattern = Pattern.compile(REG_EXP);
+            Matcher matcher = pattern.matcher(password);
+            int mayusculas = verificarMayusculas(password);
+            int arroba=verificarCorreo(email);
+            int numeros=verificarNumeros(password);
+            if(password.length()>=8 && matcher.find() && mayusculas>=1 && arroba==1 && numeros>=1 && !email.equals("") && !nombre.equals("")) {
+                name = nombre;
+                correo = email;
+                clave = password;
+                date = fechaNacimiento;
+                bicicletas = new ArrayList<>();
+                System.out.println("creando...");
+            }else{
+                JPanel panel=new JPanel();
+                JOptionPane.showMessageDialog(panel,"El biciusuario "+nombre+" tiene la contraseña o el correo invalidos","Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }catch (Exception e){
+
+        }
+
+    }
+
+    public void addBicicleta(Bicycle bike){
+        bicicletas.add(bike);
     }
     
     @Override

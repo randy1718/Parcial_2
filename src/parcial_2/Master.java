@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Master implements Operaciones{
     private ArrayList<Stakeholder> miembros=new ArrayList<>();
     private static Master instancia = null;
-    
+
     public static Master laConstructora(){
         if(instancia==null){
             instancia=new Master();
@@ -30,22 +30,28 @@ public class Master implements Operaciones{
 
     @Override
     public void addEmpresa(String nombre, String nit, String email, String direccion, String password) {
-       
+
     }
 
     @Override
-    public void addBicicleta(String emailBiciusuario,Bicicleta bike) {
-        
+    public void addBicicleta(String emailBiciusuario,Bicycle bike) {
+        for(int i=0;i<miembros.size();i++){
+            Biciusuario user= (Biciusuario) miembros.get(i);
+            if (user.getEmail().equals(emailBiciusuario)) {
+                user.addBicicleta(bike);
+                System.out.println("Bicicleta añadida correctamente!"+emailBiciusuario);
+            }
+        }
     }
 
     @Override
     public void eliminarBiciusuario(String email) {
-        
+
     }
 
     @Override
     public void eliminarEmpresa(String nit) {
-        
+
     }
 
     @Override
@@ -66,12 +72,12 @@ public class Master implements Operaciones{
 
     @Override
     public void addMiembroEmpresa(String emailEmpresa, String emailUsuario) {
-        
+
     }
 
     @Override
     public void eliminarMiembroEmpresa(String emailEmpresa, String emailUsuario) {
-        
+
     }
 
     @Override
@@ -91,53 +97,59 @@ public class Master implements Operaciones{
 
     @Override
     public void actualizarNombreEmpresa(String nameNuevo) {
-        
+
     }
 
     @Override
     public void actualizarEmailEmpresa(String emailNuevo) {
-        
+
     }
 
     @Override
     public void actualizarPassowordEmpresa(String passwordNuevo) {
-        
+
     }
 
     @Override
     public void actualizarDireccionEmpresa(String direccionNueva) {
-        
+
     }
 
     @Override
     public void actualizarNitEmpresa(String nitNuevo) {
-        
+
     }
 
     @Override
     public void actualizarNombreBiciusuario(String nombreNuevo) {
-        
+
     }
 
     @Override
     public void actualizarEmailBiciusuario(String emailNuevo) {
-        
+
     }
 
     @Override
     public void actualizarPasswordBiciusuario(String claveNueva) {
-        
+
     }
 
     @Override
     public boolean validacionDatos(String email, String password) {
         boolean respuesta=false;
-        for(int i=0;i<miembros.size();i++){
-            Stakeholder miembro=miembros.get(i);
-            if(miembro.getEmail().equals(email) && miembro.getPassword().equals(password)){
-                respuesta=true;
+        try{
+            for(int i=0;i<miembros.size();i++){
+                Stakeholder miembro=miembros.get(i);
+                if(miembro.getEmail().equals(email) && miembro.getPassword().equals(password)){
+                    respuesta=true;
+                    break;
+                }
             }
+        }catch (Exception e){
+
         }
+
         return respuesta;
     }
     
