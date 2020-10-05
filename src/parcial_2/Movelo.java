@@ -46,11 +46,27 @@ public class Movelo {
     }
     
     public void setCorreo(String correo){
-        
+        if(!correo.equals("")){
+            int arroba=verificarEmail(email);
+            if(arroba==1){
+                this.email=email;
+            }
+        }else{
+            System.out.println("El email nuevo no puede estar vacio!");
+        }
     }
     
     public void setClave(String clave){
-        
+        if(!clave.equals("")){
+            Pattern pattern = Pattern.compile(REG_EXP);
+            Matcher matcher = pattern.matcher(clave);
+            int mayusculas = verificarLetrasMayusculas(clave);
+            if(clave.length()>=8 && matcher.find() && mayusculas>=1 ){
+                password=clave;
+            }
+        }else{
+            System.out.println("La clave nueva no puede estar vacia!");
+        }
     }
             
     

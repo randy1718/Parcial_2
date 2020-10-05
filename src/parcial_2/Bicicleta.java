@@ -21,4 +21,8 @@ public class Bicicleta implements Bicycle {
     public String showBicycle() {
         return "Bicicleta "+serial+marca+color;
     }
+
+    public String getSerial(){
+        return serial;
+    }
 }

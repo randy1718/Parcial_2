@@ -23,7 +23,13 @@ public class Parcial_2 {
         acceso.addMoveloUser("movelo20","movelo@movelo.com","12345Q%3");
         acceso.addBiciusuario("Randy", "rrandymiller@gmail.com", "123456A$", "17-09-2000");
         acceso.addBiciusuario("Alexander", "alexjg@gmail.com", "87!R54321", "1-08-2002");
+        acceso.addEmpresa("Apple","123456","apple@apple.com","carrera 7 # 34-12","ASDFqw1$");
         Bicycle bike=new ModeloDecorator(new Bicicleta("123 ","src ","rojo "),"2020");
+
+        acceso.validacionDatos("apple@apple.com","ASDFqw1$");
+        Stakeholder user=acceso.buscarBiciusuario("rrandymiller@gmail.com");
+        acceso.addMiembroEmpresa("apple@apple.com",user);
+        acceso.mostrarMiembrosEmpresa("apple@apple.com");
 
         String r=acceso.validacionDatos("rrandymiller@gmail.com", "123456A$");
         acceso.addBicicleta("rrandymiller@gmail.com",bike);
@@ -34,7 +40,7 @@ public class Parcial_2 {
 
         String m=acceso.validacionDatos("movelo@movelo.com","12345Q%3");
 
-        acceso.eliminarBiciusuario("rrandymiller@gmail.com");
+        //acceso.eliminarBiciusuario("rrandymiller@gmail.com");
 
         String my=acceso.mostrarMiembros();
 

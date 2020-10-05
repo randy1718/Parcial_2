@@ -16,12 +16,15 @@ public interface Operaciones {
     public void addBicicleta(String emailBiciusuario,Bicycle bike);
     public void eliminarBiciusuario(String email);
     public void eliminarEmpresa(String email);
+    public void eliminarBicicleta(String emailBiciusuario,String serial);
     public Stakeholder buscarBiciusuario(String email);
     public Stakeholder buscarEmpresa(String email);
-    public Bicycle buscarBicicleta(String email);
-    public void addMiembroEmpresa(String emailEmpresa,String emailUsuario);
+    public Stakeholder buscarMiembroEmpresa(String emailEmpresa,String emailMiembro);
+    public Bicycle buscarBicicleta(String emailBiciusuario,String serial);
+    public void addMiembroEmpresa(String emailEmpresa,Stakeholder miembro);
     public void eliminarMiembroEmpresa(String emailEmpresa,String emailUsuario);
     public String mostrarMiembros();
+    public String mostrarMiembrosEmpresa(String emailEmpresa);
     public String mostrarBiciusuarios();
     public String mostrarEmpresas();
     public void actualizarNombreEmpresa(String emailEmpresa,String nameNuevo);
@@ -34,9 +37,9 @@ public interface Operaciones {
     public void actualizarPasswordBiciusuario(String correo,String claveNueva);
     public String validacionDatos(String email, String password);
     public String mostrarBicicletas(String emailBiciusuario);
-    public void addViaje();
-    public void addRuta(String emailBiciusuario);
-    public void eliminarRuta(String emailBiciusuario);
+    public void addViaje(String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad);
+    public void addRuta(String emailBiciusuario, String codigoRuta,String coordenadasIniciales,String coordenadasFinales);
+    public void eliminarRuta(String emailBiciusuario,String codigoRuta);
     public String botonPanico(String email,String mensaje);
     
 }

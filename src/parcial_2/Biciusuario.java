@@ -34,7 +34,7 @@ public class Biciusuario implements Stakeholder{
                 clave = password;
                 date = fechaNacimiento;
                 bicicletas = new ArrayList<>();
-                System.out.println("creando...");
+                System.out.println("creando biciusuario...");
             }else{
                 JPanel panel=new JPanel();
                 JOptionPane.showMessageDialog(panel,"El biciusuario "+nombre+" tiene la contraseña o el correo invalidos","Error", JOptionPane.ERROR_MESSAGE);
@@ -49,6 +49,26 @@ public class Biciusuario implements Stakeholder{
         bicicletas.add(bike);
     }
 
+    public Bicycle darBicicleta(String serial){
+        Bicycle bike=null;
+        for(int i=0;i<bicicletas.size();i++){
+            Bicicleta bici= (Bicicleta) bicicletas.get(i);
+            if(bici.getSerial().equals(serial)){
+                bike=bici;
+            }
+        }
+        return bike;
+    }
+
+    public void eliminarBicicleta(String serial){
+        for(int i=0;i<bicicletas.size();i++){
+            Bicicleta bici= (Bicicleta) bicicletas.get(i);
+            if(bici.getSerial().equals(serial)){
+                bicicletas.remove(bici);
+            }
+        }
+    }
+
     @Override
     public String mostrarDatos() {
         return "Datos Biciusuario: \n"+"Nombre: "+name+"\nEmail: "+correo+"\n\n";
@@ -56,17 +76,37 @@ public class Biciusuario implements Stakeholder{
 
     @Override
     public void setNombre(String name) {
-       
+        if(!name.equals("")){
+            this.name=name;
+        }else{
+            System.out.println("El username nuevo no puede estar vacio!");
+        }
     }
 
     @Override
     public void setEmail(String email) {
-       
+        if(!correo.equals("")){
+            int arroba=verificarCorreo(email);
+            if(arroba==1){
+                correo=email;
+            }
+        }else{
+            System.out.println("El email nuevo no puede estar vacio!");
+        }
     }
 
     @Override
     public void setPassword(String password) {
-        
+        if(!password.equals("")){
+            Pattern pattern = Pattern.compile(REG_EXP);
+            Matcher matcher = pattern.matcher(clave);
+            int mayusculas = verificarMayusculas(clave);
+            if(password.length()>=8 && matcher.find() && mayusculas>=1 ){
+                clave=password;
+            }
+        }else{
+            System.out.println("La clave nueva no puede estar vacia!");
+        }
     }
 
     @Override

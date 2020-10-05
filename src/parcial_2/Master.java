@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Randy
  */
 public class Master implements Operaciones{
-    private ArrayList<Stakeholder> miembros=new ArrayList<>();
+    private final ArrayList<Stakeholder> miembros=new ArrayList<>();
     private static Master instancia = null;
 
     public static Master laConstructora(){
@@ -42,11 +42,13 @@ public class Master implements Operaciones{
 
     @Override
     public void addBicicleta(String emailBiciusuario,Bicycle bike) {
-        for(int i=0;i<miembros.size();i++){
-            if (miembros.get(i).getEmail().equals(emailBiciusuario)) {
-                Biciusuario user= (Biciusuario) miembros.get(i);
-                user.addBicicleta(bike);
-                System.out.println("Bicicleta añadida correctamente al biciusuario con correo "+emailBiciusuario+" !");
+        for (Stakeholder miembro : miembros) {
+            if (miembro instanceof Biciusuario) {
+                Biciusuario user = (Biciusuario) miembro;
+                if (miembro.getEmail().equals(emailBiciusuario)) {
+                    user.addBicicleta(bike);
+                    System.out.println("Bicicleta añadida correctamente al biciusuario con correo " + emailBiciusuario + " !");
+                }
             }
         }
     }
@@ -54,47 +56,111 @@ public class Master implements Operaciones{
     @Override
     public void eliminarBiciusuario(String email) {
         for(int i=0;i<miembros.size();i++){
-            if (miembros.get(i).getEmail().equals(email)) {
-                miembros.remove(miembros.get(i));
-                System.out.println("Biciusuario con email "+email+" Eliminado!");
+            if(miembros.get(i) instanceof Biciusuario) {
+                if (miembros.get(i).getEmail().equals(email)) {
+                    miembros.remove(miembros.get(i));
+                    System.out.println("Biciusuario con email " + email + " Eliminado!");
+                }
             }
         }
     }
 
     @Override
-    public void eliminarEmpresa(String nit) {
+    public void eliminarEmpresa(String email) {
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Empresa) {
+                if (miembros.get(i).getEmail().equals(email)) {
+                    miembros.remove(miembros.get(i));
+                    System.out.println("Biciusuario con email " + email + " Eliminado!");
+                }
+            }
+        }
+    }
 
+    @Override
+    public void eliminarBicicleta(String emailBiciusuario, String serial) {
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Biciusuario) {
+                if (miembros.get(i).getEmail().equals(emailBiciusuario)) {
+                    ((Biciusuario) miembros.get(i)).eliminarBicicleta(serial);
+                }
+            }
+        }
     }
 
     @Override
     public Stakeholder buscarBiciusuario(String email) {
         Stakeholder res=null;
         for(int i=0;i<miembros.size();i++){
-           if(miembros.get(i).getEmail().equals(email)){
-               res=miembros.get(i);
-           }
+            if(miembros.get(i) instanceof Biciusuario) {
+                if (miembros.get(i).getEmail().equals(email)) {
+                    res = miembros.get(i);
+                }
+            }
         }
         return res;
     }
 
     @Override
     public Stakeholder buscarEmpresa(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Stakeholder res=null;
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Empresa) {
+                if (miembros.get(i).getEmail().equals(email)) {
+                    res = miembros.get(i);
+                }
+            }
+        }
+        return res;
     }
 
     @Override
-    public Bicycle buscarBicicleta(String email) {
-        return null;
+    public Stakeholder buscarMiembroEmpresa(String emailEmpresa,String emailMiembro) {
+        Stakeholder res=null;
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Empresa) {
+                if (miembros.get(i).getEmail().equals(emailEmpresa)) {
+                    res = ((Empresa) miembros.get(i)).darMiembro(emailMiembro);
+                }
+            }
+        }
+        return res;
     }
 
     @Override
-    public void addMiembroEmpresa(String emailEmpresa, String emailUsuario) {
+    public Bicycle buscarBicicleta(String emailBiciusuario,String serial) {
+        Bicycle bike=null;
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Biciusuario) {
+                if (miembros.get(i).getEmail().equals(emailBiciusuario)) {
+                    bike = ((Biciusuario) miembros.get(i)).darBicicleta(serial);
+                }
+            }
+        }
+        return bike;
+    }
 
+    @Override
+    public void addMiembroEmpresa(String emailEmpresa, Stakeholder miembro) {
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Empresa) {
+                if (miembros.get(i).getEmail().equals(emailEmpresa)) {
+                    ((Empresa) miembros.get(i)).addMiembros(miembro);
+                    System.out.println("Miembro añadido correctamente!");
+                }
+            }
+        }
     }
 
     @Override
     public void eliminarMiembroEmpresa(String emailEmpresa, String emailUsuario) {
-
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Empresa) {
+                if (miembros.get(i).getEmail().equals(emailEmpresa)) {
+                    ((Empresa) miembros.get(i)).eliminarMiembro(emailUsuario);
+                }
+            }
+        }
     }
 
     @Override
@@ -102,11 +168,25 @@ public class Master implements Operaciones{
         String respuesta="";
         for(int i=0;i<miembros.size();i++){
             respuesta=respuesta+miembros.get(i).mostrarDatos();
-
         }
         System.out.println(respuesta);
         return respuesta;
     }
+
+    @Override
+    public String mostrarMiembrosEmpresa(String emailEmpresa) {
+        String respuesta="";
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Empresa) {
+                if (miembros.get(i).getEmail().equals(emailEmpresa)) {
+                    respuesta=respuesta+((Empresa) miembros.get(i)).mostrarMiembros();
+                }
+            }
+        }
+        System.out.println(respuesta);
+        return respuesta;
+    }
+
 
     @Override
     public String mostrarBiciusuarios() {
@@ -185,17 +265,17 @@ public class Master implements Operaciones{
     }
 
     @Override
-    public void addViaje() {
+    public void addViaje(String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad) {
 
     }
 
     @Override
-    public void addRuta(String emailBiciusuario) {
+    public void addRuta(String emailBiciusuario, String codigoRuta,String coordenadasIniciales,String coordenadasFinales) {
 
     }
 
     @Override
-    public void eliminarRuta(String emailBiciusuario) {
+    public void eliminarRuta(String emailBiciusuario,String codigoRuta) {
 
     }
 

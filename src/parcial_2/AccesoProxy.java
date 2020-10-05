@@ -45,23 +45,23 @@ public class AccesoProxy implements Operaciones{
     }
 
     @Override
-    public void addViaje() {
-
+    public void addViaje(String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad) {
+        this.master.addViaje(coordenadasIniciales,coordenadasFinales,duracion,velocidad);
     }
 
     @Override
-    public void addRuta(String emailBiciusuario) {
-
+    public void addRuta(String emailBiciusuario, String codigoRuta,String coordenadasIniciales,String coordenadasFinales) {
+        this.master.addRuta(emailBiciusuario,codigoRuta,coordenadasIniciales,coordenadasFinales);
     }
 
     @Override
-    public void eliminarRuta(String emailBiciusuario) {
-
+    public void eliminarRuta(String emailBiciusuario,String codigoRuta) {
+        this.master.eliminarRuta(emailBiciusuario,codigoRuta);
     }
 
     @Override
     public String botonPanico(String email, String mensaje) {
-        return null;
+        return this.master.botonPanico(email,mensaje);
     }
 
     @Override
@@ -111,6 +111,17 @@ public class AccesoProxy implements Operaciones{
     }
 
     @Override
+    public void eliminarBicicleta(String emailBiciusuario, String serial) {
+        if(validacion.equals("true") && this.email.equals(emailBiciusuario)) {
+            this.master.eliminarBicicleta(emailBiciusuario,serial);
+        }else if(validacion.equals("Movelo")) {
+            this.master.eliminarBicicleta(emailBiciusuario,serial);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
+    }
+
+    @Override
     public Stakeholder buscarBiciusuario(String email) {
         return this.master.buscarBiciusuario(email);
     }
@@ -121,13 +132,18 @@ public class AccesoProxy implements Operaciones{
     }
 
     @Override
-    public Bicycle buscarBicicleta(String email) {
-        return this.master.buscarBicicleta(email);
+    public Stakeholder buscarMiembroEmpresa(String emailEmpresa,String emailMiembro) {
+        return this.master.buscarMiembroEmpresa(emailEmpresa,emailMiembro);
     }
 
     @Override
-    public void addMiembroEmpresa(String emailEmpresa, String emailUsuario) {
-        this.master.addMiembroEmpresa(emailEmpresa,emailUsuario);
+    public Bicycle buscarBicicleta(String emailBiciusuario,String serial) {
+        return this.master.buscarBicicleta(emailBiciusuario,serial);
+    }
+
+    @Override
+    public void addMiembroEmpresa(String emailEmpresa, Stakeholder miembro) {
+        this.master.addMiembroEmpresa(emailEmpresa,miembro);
     }
 
     @Override
@@ -138,6 +154,11 @@ public class AccesoProxy implements Operaciones{
     @Override
     public String mostrarMiembros() {
         return this.master.mostrarMiembros();
+    }
+
+    @Override
+    public String mostrarMiembrosEmpresa(String emailEmpresa) {
+        return this.master.mostrarMiembrosEmpresa(emailEmpresa);
     }
 
     @Override

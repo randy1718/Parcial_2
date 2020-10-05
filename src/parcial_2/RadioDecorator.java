@@ -9,6 +9,18 @@ package parcial_2;
  *
  * @author Randy
  */
-public class RadioDecorator {
-    
+public class RadioDecorator extends BicicletaDecorator {
+
+    protected String radio;
+
+    public RadioDecorator(Bicicleta bike,String radio) {
+        super(bike);
+        this.radio=radio;
+    }
+
+    @Override
+    public String showBicycle() {
+        String respuesta=super.showBicycle();
+        return respuesta+" Modelo: "+radio;
+    }
 }
