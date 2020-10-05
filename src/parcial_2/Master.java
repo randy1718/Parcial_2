@@ -119,42 +119,42 @@ public class Master implements Operaciones{
     }
 
     @Override
-    public void actualizarNombreEmpresa(String nameNuevo) {
+    public void actualizarNombreEmpresa(String emailEmpresa,String nameNuevo) {
 
     }
 
     @Override
-    public void actualizarEmailEmpresa(String emailNuevo) {
+    public void actualizarEmailEmpresa(String emailEmpresa,String emailNuevo) {
 
     }
 
     @Override
-    public void actualizarPassowordEmpresa(String passwordNuevo) {
+    public void actualizarPassowordEmpresa(String emailEmpresa,String passwordNuevo) {
 
     }
 
     @Override
-    public void actualizarDireccionEmpresa(String direccionNueva) {
+    public void actualizarDireccionEmpresa(String emailEmpresa,String direccionNueva) {
 
     }
 
     @Override
-    public void actualizarNitEmpresa(String nitNuevo) {
+    public void actualizarNitEmpresa(String emailEmpresa,String nitNuevo) {
 
     }
 
     @Override
-    public void actualizarNombreBiciusuario(String nombreNuevo) {
+    public void actualizarNombreBiciusuario(String correo,String nombreNuevo) {
 
     }
 
     @Override
-    public void actualizarEmailBiciusuario(String emailNuevo) {
+    public void actualizarEmailBiciusuario(String correo,String emailNuevo) {
 
     }
 
     @Override
-    public void actualizarPasswordBiciusuario(String claveNueva) {
+    public void actualizarPasswordBiciusuario(String correo,String claveNueva) {
 
     }
 

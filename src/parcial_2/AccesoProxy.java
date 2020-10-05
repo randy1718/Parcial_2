@@ -11,7 +11,7 @@ package parcial_2;
  */
 public class AccesoProxy implements Operaciones{
     private static AccesoProxy instancia = null;
-    private Master master=Master.laConstructora();
+    private final Master master=Master.laConstructora();
     protected String validacion="false";
     protected String email="";
     
@@ -90,7 +90,7 @@ public class AccesoProxy implements Operaciones{
 
     @Override
     public void eliminarBiciusuario(String email) {
-        if(validacion.equals("true") && email.equals(email)){
+        if(validacion.equals("true") && this.email.equals(email)){
             this.master.eliminarBiciusuario(email);
         }else if(validacion.equals("Movelo")) {
             this.master.eliminarBiciusuario(email);
@@ -100,88 +100,105 @@ public class AccesoProxy implements Operaciones{
     }
 
     @Override
-    public void eliminarEmpresa(String nit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminarEmpresa(String email) {
+        if(validacion.equals("true") && this.email.equals(email)) {
+            this.master.eliminarEmpresa(email);
+        }else if(validacion.equals("Movelo")) {
+            this.master.eliminarEmpresa(email);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
     public Stakeholder buscarBiciusuario(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.master.buscarBiciusuario(email);
     }
 
     @Override
     public Stakeholder buscarEmpresa(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.master.buscarEmpresa(email);
     }
 
     @Override
     public Bicycle buscarBicicleta(String email) {
-        return null;
+        return this.master.buscarBicicleta(email);
     }
 
     @Override
     public void addMiembroEmpresa(String emailEmpresa, String emailUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.master.addMiembroEmpresa(emailEmpresa,emailUsuario);
     }
 
     @Override
     public void eliminarMiembroEmpresa(String emailEmpresa, String emailUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.master.eliminarMiembroEmpresa(emailEmpresa,emailUsuario);
     }
 
     @Override
     public String mostrarMiembros() {
-       String respuesta=this.master.mostrarMiembros();
-       return respuesta;
+        return this.master.mostrarMiembros();
     }
 
     @Override
     public String mostrarBiciusuarios() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.master.mostrarBiciusuarios();
     }
 
     @Override
     public String mostrarEmpresas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.master.mostrarEmpresas();
     }
 
     @Override
-    public void actualizarNombreEmpresa(String nameNuevo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actualizarNombreEmpresa(String emailEmpresa,String nameNuevo) {
+        this.master.actualizarNombreEmpresa(emailEmpresa,nameNuevo);
     }
 
     @Override
-    public void actualizarEmailEmpresa(String emailNuevo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actualizarEmailEmpresa(String emailEmpresa,String emailNuevo) {
+        this.master.actualizarEmailEmpresa(emailEmpresa,emailNuevo);
     }
 
     @Override
-    public void actualizarPassowordEmpresa(String passwordNuevo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actualizarPassowordEmpresa(String emailEmpresa,String passwordNuevo) {
+        this.master.actualizarPassowordEmpresa(emailEmpresa,passwordNuevo);
     }
 
     @Override
-    public void actualizarDireccionEmpresa(String direccionNueva) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actualizarDireccionEmpresa(String emailEmpresa,String direccionNueva) {
+        this.master.actualizarDireccionEmpresa(emailEmpresa,direccionNueva);
     }
 
     @Override
-    public void actualizarNitEmpresa(String nitNuevo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actualizarNitEmpresa(String emailEmpresa,String nitNuevo) {
+        this.master.actualizarNitEmpresa(emailEmpresa,nitNuevo);
     }
 
     @Override
-    public void actualizarNombreBiciusuario(String nombreNuevo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actualizarNombreBiciusuario(String correo,String nombreNuevo) {
+        if(validacion.equals("true") && email.equals(correo)) {
+            this.master.actualizarNombreBiciusuario(correo,nombreNuevo);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
-    public void actualizarEmailBiciusuario(String emailNuevo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actualizarEmailBiciusuario(String correo,String emailNuevo) {
+        if(validacion.equals("true") && email.equals(correo)) {
+            this.master.actualizarEmailBiciusuario(correo,emailNuevo);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
-    public void actualizarPasswordBiciusuario(String claveNueva) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actualizarPasswordBiciusuario(String correo,String claveNueva) {
+        if(validacion.equals("true") && email.equals(correo)) {
+            this.master.actualizarPasswordBiciusuario(correo,claveNueva);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 }

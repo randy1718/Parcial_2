@@ -48,50 +48,6 @@ public class Biciusuario implements Stakeholder{
     public void addBicicleta(Bicycle bike){
         bicicletas.add(bike);
     }
-    
-    @Override
-    public int verificarMayusculas(String clave) {
-        int contador = 0;
-        char letra;
-        for (int i = 0; i < clave.length(); i++) {
-            letra = clave.charAt(i);
-            if (Character.isUpperCase(letra)) {
-                contador = contador + 1;
-            }
-        }
-
-        return contador;
-    }
-    
-    @Override
-    public int verificarCorreo(String correo) {
-        int contador = 0;
-        char letra;
-        for (int i = 0; i < correo.length(); i++) {
-            letra = correo.charAt(i);
-            String let=String.valueOf(letra);
-            if (let.equals("@")) {
-                contador = contador + 1;
-            }
-        }
-
-        return contador;
-    }
-    
-    @Override
-    public int verificarNumeros(String clave) {
-        int contador = 0;
-        char letra;
-        for (int i = 0; i < clave.length(); i++) {
-            letra = clave.charAt(i);
-            String let=String.valueOf(letra);
-            if (let.matches("[0-9]")) {
-                contador = contador + 1;
-            }
-        }
-
-        return contador;
-    }
 
     @Override
     public String mostrarDatos() {
@@ -126,5 +82,49 @@ public class Biciusuario implements Stakeholder{
     @Override
     public String getPassword() {
         return clave;
+    }
+
+    @Override
+    public int verificarMayusculas(String clave) {
+        int contador = 0;
+        char letra;
+        for (int i = 0; i < clave.length(); i++) {
+            letra = clave.charAt(i);
+            if (Character.isUpperCase(letra)) {
+                contador = contador + 1;
+            }
+        }
+
+        return contador;
+    }
+
+    @Override
+    public int verificarCorreo(String correo) {
+        int contador = 0;
+        char letra;
+        for (int i = 0; i < correo.length(); i++) {
+            letra = correo.charAt(i);
+            String let=String.valueOf(letra);
+            if (let.equals("@")) {
+                contador = contador + 1;
+            }
+        }
+
+        return contador;
+    }
+
+    @Override
+    public int verificarNumeros(String clave) {
+        int contador = 0;
+        char letra;
+        for (int i = 0; i < clave.length(); i++) {
+            letra = clave.charAt(i);
+            String let=String.valueOf(letra);
+            if (let.matches("[0-9]")) {
+                contador = contador + 1;
+            }
+        }
+
+        return contador;
     }
 }
