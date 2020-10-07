@@ -22,7 +22,7 @@ public class Biciusuario implements Stakeholder{
     private ArrayList<Viaje> viajes;
     private int arboles;
     private String name,correo,clave;
-    private Date date;
+    private String date;
     private String REG_EXP = "\\¿+|\\?+|\\°+|\\¬+|\\|+|\\!+|\\#+|\\$+|\\)+|"
                 + "\\%+|\\&+|\\(+|\\=+|\\’+|\\¡+|\\++|\\*+|\\~+|\\[+|\\]"
                 + "+|\\{+|\\}+|\\^+|\\<+|\\>+|\\/+|\\\"+";
@@ -34,16 +34,28 @@ public class Biciusuario implements Stakeholder{
             int mayusculas = verificarMayusculas(password);
             int arroba=verificarCorreo(email);
             int numeros=verificarNumeros(password);
-            if(password.length()>=8 && matcher.find() && mayusculas>=1 && arroba==1 && numeros>=1 && !email.equals("") && !nombre.equals("")) {
+            Date fecha=null;
+            SimpleDateFormat formatter=null;
+            try{
+                fecha = new SimpleDateFormat("yyyy/MM/dd").parse(fechaNacimiento);
+                formatter=new SimpleDateFormat("yyyy/MM/dd");
+            }catch (Exception e){
+                System.out.println("La fecha de nacimiento no tiene el formato valido (YYYY/MM/DD)");
+            }
+
+            if(password.length()>=8 && matcher.find() && mayusculas>=1 && arroba==1 && numeros>=1 && !email.equals("") && !nombre.equals("") && fecha!=null) {
                 name = nombre;
                 correo = email;
                 clave = password;
-                date = new SimpleDateFormat("yyyy/MM/dd").parse(fechaNacimiento);
+                date=formatter.format(fecha);
                 bicicletas = new ArrayList<>();
                 rutas=new ArrayList<>();
                 viajes=new ArrayList<>();
                 arboles=0;
                 System.out.println("creando biciusuario...");
+            }else if(fecha==null) {
+                JPanel panel=new JPanel();
+                JOptionPane.showMessageDialog(panel,"El biciusuario "+nombre+" ingreso la fecha de nacimiento en un formato invalido, el correcto es (YYYY/MM/DD)","Error", JOptionPane.ERROR_MESSAGE);
             }else{
                 JPanel panel=new JPanel();
                 JOptionPane.showMessageDialog(panel,"El biciusuario "+nombre+" tiene la contraseña o el correo invalidos","Error", JOptionPane.ERROR_MESSAGE);
@@ -95,6 +107,16 @@ public class Biciusuario implements Stakeholder{
     public void addRuta(String codigo,String coorIni,String coorFin){
         Ruta r=new Ruta(coorIni,coorFin,codigo);
         rutas.add(r);
+    }
+
+    public Ruta getRuta(String codigo){
+        Ruta respuesta=null;
+        for(int i=0;i<rutas.size();i++){
+           if(rutas.get(i).getCodigo().equals(codigo)){
+               respuesta=rutas.get(i);
+           }
+        }
+        return respuesta;
     }
 
     public void eliminarRuta(String codigo){
@@ -168,7 +190,16 @@ public class Biciusuario implements Stakeholder{
     }
 
     public String getFechaNacimiento(){
-        return date.toString();
+        String respuesta="";
+        try{
+            respuesta=date;
+        }catch (Exception e){
+            System.out.println(e);
+            if(e.toString().equals("java.lang.NullPointerException")){
+                respuesta="La fecha no tiene el formato requerido (yyyy/MM/DD)";
+            }
+        }
+        return respuesta;
     }
 
     @Override

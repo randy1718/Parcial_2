@@ -25,20 +25,59 @@ public class Master implements Operaciones{
 
     @Override
     public void addBiciusuario(String nombre, String email, String password, String fechaNacimiento) {
-       Biciusuario user=new Biciusuario(nombre,email,password,fechaNacimiento);
-       miembros.add(user);
+        int contador = 0;
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i).getEmail().equals(email) && miembros.get(i).getNombre().equals(nombre)){
+                System.out.println("El biciusuario ya esta registrado");
+            }else if(miembros.get(i).getNombre().equals(nombre) || miembros.get(i).getEmail().equals(email)){
+                System.out.println("El email o el nombre de usuario ya estan registrados");
+            }else{
+                contador++;
+            }
+        }
+        if (contador== miembros.size()) {
+            Biciusuario user=new Biciusuario(nombre,email,password,fechaNacimiento);
+            miembros.add(user);
+        }
+
     }
 
     @Override
     public void addEmpresa(String nombre, String nit, String email, String direccion, String password) {
-        Empresa company=new Empresa(nombre,email,password,direccion,nit);
-        miembros.add(company);
+        int contador = 0;
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i).getEmail().equals(email) && miembros.get(i).getNombre().equals(nombre)){
+                System.out.println("La empresa ya esta registrado");
+            }else if(miembros.get(i).getNombre().equals(nombre) || miembros.get(i).getEmail().equals(email)){
+                System.out.println("El email o el nombre de la empresa ya estan registrados");
+            }else{
+                contador++;
+            }
+        }
+        if (contador== miembros.size()) {
+            Empresa company=new Empresa(nombre,email,password,direccion,nit);
+            miembros.add(company);
+        }
+
     }
 
     @Override
     public void addMoveloUser(String username, String email, String password) {
-        MoveloAdapter movelo=new MoveloAdapter(username,email,password);
-        miembros.add(movelo);
+        int contador = 0;
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i).getEmail().equals(email) && miembros.get(i).getNombre().equals(username)){
+                System.out.println("El usario de Movelo ya esta registrado");
+            }else if(miembros.get(i).getNombre().equals(username) || miembros.get(i).getEmail().equals(email)){
+                System.out.println("El email o el nombre del usuario de Movelo ya estan registrados");
+            }else{
+                contador++;
+            }
+        }
+        if (contador== miembros.size()) {
+            MoveloAdapter movelo=new MoveloAdapter(username,email,password);
+            miembros.add(movelo);
+        }
+
     }
 
     @Override

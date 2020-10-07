@@ -14,4 +14,12 @@ public class Ruta {
         return code;
     }
 
+
+    public String getCoordFinales() {
+        return coordFinales;
+    }
+
+    public String getCoordIniciales() {
+        return coordIniciales;
+    }
 }

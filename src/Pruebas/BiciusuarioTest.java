@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import parcial_2.Bicicleta;
 import parcial_2.Biciusuario;
 import parcial_2.Bicycle;
+import parcial_2.Ruta;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,7 +30,7 @@ class BiciusuarioTest {
         int arroba=verificarCorreo(email);
         int numeros=verificarNumeros(password);
         if(password.length()>=8 && matcher.find() && mayusculas>=1 && arroba==1 && numeros>=1){
-            assertEquals("Juan josejose@gmail.comAERqw12$#Tue Dec 12 00:00:00 COT 2000",nombre+email+password+fechaNacimiento);
+            assertEquals("Juan josejose@gmail.comAERqw12$#2000/12/12",nombre+email+password+fechaNacimiento);
         }else{
             fail("La clave o el correo no cumplen con los requerimientos!");
         }
@@ -95,10 +96,21 @@ class BiciusuarioTest {
     }
 
     @Test
+    void addRuta(){
+        Biciusuario user=new Biciusuario("Juan jose","jose@gmail.com","AERqw12$#","2000/12/12");
+        user.addRuta("12345","1234.56789","12345.23456");
+        Ruta r=user.getRuta("12345");
+        String code=r.getCodigo();
+        String cI=r.getCoordIniciales();
+        String cF=r.getCoordFinales();
+        assertEquals("123451234.5678912345.23456",code+cI+cF);
+    }
+
+    @Test
     void mostrarDatos() {
         Biciusuario user=new Biciusuario("Juan jose","jose@gmail.com","AERqw12$#","2000/12/12");
         String datos=user.mostrarDatos();
-        assertEquals("Datos Biciusuario: \nNombre: Juan jose\nEmail: jose@gmail.com\nFecha de Nacimiento: Tue Dec 12 00:00:00 COT 2000\n\n",datos);
+        assertEquals("Datos Biciusuario: \nNombre: Juan jose\nEmail: jose@gmail.com\nFecha de Nacimiento: 2000/12/12\n\n",datos);
     }
 
     @Test
@@ -109,7 +121,7 @@ class BiciusuarioTest {
         String email= user.getEmail();
         String password=user.getPassword();
         String fechaNacimiento= user.getFechaNacimiento();
-        assertEquals("JUAN JOSEjose@gmail.comAERqw12$#Tue Dec 12 00:00:00 COT 2000",nombre+email+password+fechaNacimiento);
+        assertEquals("JUAN JOSEjose@gmail.comAERqw12$#2000/12/12",nombre+email+password+fechaNacimiento);
 
     }
 
@@ -121,7 +133,7 @@ class BiciusuarioTest {
         String email= user.getEmail();
         String password=user.getPassword();
         String fechaNacimiento= user.getFechaNacimiento();
-        assertEquals("Juan josejjose@gmail.comAERqw12$#Tue Dec 12 00:00:00 COT 2000",nombre+email+password+fechaNacimiento);
+        assertEquals("Juan josejjose@gmail.comAERqw12$#2000/12/12",nombre+email+password+fechaNacimiento);
     }
 
     @Test
@@ -132,7 +144,7 @@ class BiciusuarioTest {
         String email= user.getEmail();
         String password=user.getPassword();
         String fechaNacimiento= user.getFechaNacimiento();
-        assertEquals("Juan josejose@gmail.com1234AS!%Tue Dec 12 00:00:00 COT 2000",nombre+email+password+fechaNacimiento);
+        assertEquals("Juan josejose@gmail.com1234AS!%2000/12/12",nombre+email+password+fechaNacimiento);
     }
 
     public int verificarMayusculas(String clave) {
