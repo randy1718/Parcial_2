@@ -19,7 +19,7 @@ public class Bicicleta implements Bicycle {
 
     @Override
     public String showBicycle() {
-        return "Bicicleta "+"\nSerial: "+serial+"\nMarca: "+marca+"\nColor: "+color;
+        return "\nBicicleta "+"\nSerial: "+serial+"\nMarca: "+marca+"\nColor: "+color;
     }
 
     public String getSerial(){

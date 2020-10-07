@@ -45,11 +45,11 @@ public class AccesoProxy implements Operaciones{
     }
 
     @Override
-    public void addViaje(String emailUser,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad) {
+    public void addViaje(String emailUser,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros) {
         if(validacion.equals("true") && email.equals(emailUser)) {
-            this.master.addViaje(emailUser,coordenadasIniciales,coordenadasFinales,duracion,velocidad);
+            this.master.addViaje(emailUser,coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
         }else if(validacion.equals("Movelo")) {
-            this.master.addViaje(emailUser,coordenadasIniciales,coordenadasFinales,duracion,velocidad);
+            this.master.addViaje(emailUser,coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
         }else{
             System.out.println("No tienes acceso!");
         }

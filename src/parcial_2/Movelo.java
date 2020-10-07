@@ -5,6 +5,7 @@
  */
 package parcial_2;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 public class Movelo {
     
     private String username, email, password;
+    private ArrayList<Mensaje> mensajesEmergencia;
     private String REG_EXP = "\\¿+|\\?+|\\°+|\\¬+|\\|+|\\!+|\\#+|\\$+|\\)+|"
                 + "\\%+|\\&+|\\(+|\\=+|\\’+|\\¡+|\\++|\\*+|\\~+|\\[+|\\]"
                 + "+|\\{+|\\}+|\\^+|\\<+|\\>+|\\/+|\\\"+";
@@ -31,12 +33,18 @@ public class Movelo {
            this.username=username;
            this.password=password;
            this.email=email;
+           mensajesEmergencia=new ArrayList<>();
         }else{
            JPanel panel=new JPanel();
            JOptionPane.showMessageDialog(panel,"La creacion de movelo tiene la contraseña o el correo invalidos","Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
+    public void addMensajesEmergencia(String emailUser, String mensaje){
+        Mensaje men=new Mensaje(emailUser,mensaje);
+        mensajesEmergencia.add(men);
+    }
+
     public void setUsername(String user){
         if(!user.equals("")){
             username=user;

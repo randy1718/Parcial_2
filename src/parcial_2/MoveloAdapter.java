@@ -24,6 +24,10 @@ public class MoveloAdapter implements Stakeholder{
         return respuesta;
     }
 
+    public void addMensaje(String emailUser, String mensaje){
+        this.movelo.addMensajesEmergencia(emailUser,mensaje);
+    }
+
     @Override
     public void setNombre(String name) {
         this.movelo.setUsername(name);

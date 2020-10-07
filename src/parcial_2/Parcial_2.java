@@ -34,10 +34,11 @@ public class Parcial_2 {
         String r=acceso.validacionDatos("rrandymiller@gmail.com", "123456A$");
         acceso.addBicicleta("rrandymiller@gmail.com",bike);
         acceso.mostrarBicicletas("rrandymiller@gmail.com");
-
+        acceso.botonPanico("rrandymiller@gmail.com","hola");
 
         String s=acceso.validacionDatos("alexjg@gmail.com", "87!R54321");
         acceso.addBicicleta("alexjg@gmail.com",bike);
+        acceso.addViaje("alexjg@gmail.com","12345678","1234567","30 minutos","14,5kilometros por hora",6);
 
         String m=acceso.validacionDatos("movelo@movelo.com","12345Q%3");
 
@@ -46,6 +47,7 @@ public class Parcial_2 {
         String my=acceso.mostrarMiembros();
         acceso.mostrarEmpresas();
         acceso.mostrarBiciusuarios();
+
 
 
         System.out.print(""+r+s+m+bike.showBicycle());

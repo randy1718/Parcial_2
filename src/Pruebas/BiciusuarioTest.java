@@ -44,7 +44,54 @@ class BiciusuarioTest {
 
         Bicycle b=user.darBicicleta("2134");
         b.showBicycle();
-        assertEquals("Bicicleta \nSerial: 2134\nMarca: SRC\nColor: ROJO",b.showBicycle());
+        assertEquals("\nBicicleta \nSerial: 2134\nMarca: SRC\nColor: ROJO",b.showBicycle());
+    }
+    @Test
+    void darBicicleta(){
+        Biciusuario user=new Biciusuario("Juan jose","jose@gmail.com","AERqw12$#","2000/12/12");
+        Bicycle bike= new Bicicleta("2134","SRC","ROJO");
+        Bicycle bike2= new Bicicleta("9876","RECS","AZUL");
+        user.addBicicleta(bike);
+        user.addBicicleta(bike2);
+
+        Bicycle b=user.darBicicleta("9876");
+        b.showBicycle();
+        assertEquals("\nBicicleta \nSerial: 9876\nMarca: RECS\nColor: AZUL",b.showBicycle());
+    }
+
+    @Test
+    void eliminarBicicleta(){
+        Biciusuario user=new Biciusuario("Juan jose","jose@gmail.com","AERqw12$#","2000/12/12");
+        Bicycle bike= new Bicicleta("2134","SRC","ROJO");
+        Bicycle bike2= new Bicicleta("9876","RECS","AZUL");
+        user.addBicicleta(bike);
+        user.addBicicleta(bike2);
+
+        user.eliminarBicicleta("2134");
+        String res="";
+        Bicycle b=null;
+        try{
+            b=user.darBicicleta("2134");
+            b.showBicycle();
+            if(b!=null){
+                fail("No se borro correctamente la bicicleta");
+            }
+        }catch (Exception e){
+            res=e.toString();
+            assertEquals("java.lang.NullPointerException",res);
+        }
+    }
+
+    @Test
+    void getBicicletas(){
+        Biciusuario user=new Biciusuario("Juan jose","jose@gmail.com","AERqw12$#","2000/12/12");
+        Bicycle bike= new Bicicleta("2134","SRC","ROJO");
+        Bicycle bike2= new Bicicleta("9876","RECS","AZUL");
+        user.addBicicleta(bike);
+        user.addBicicleta(bike2);
+
+        String bicicletas=user.getBicicletas();
+        assertEquals("\nBicicleta \nSerial: 2134\nMarca: SRC\nColor: ROJO\nBicicleta \nSerial: 9876\nMarca: RECS\nColor: AZUL",bicicletas);
     }
 
     @Test

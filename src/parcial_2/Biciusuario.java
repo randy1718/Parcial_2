@@ -19,6 +19,8 @@ import java.util.regex.Pattern;
 public class Biciusuario implements Stakeholder{
     private ArrayList<Bicycle> bicicletas;
     private ArrayList<Ruta> rutas;
+    private ArrayList<Viaje> viajes;
+    private int arboles;
     private String name,correo,clave;
     private Date date;
     private String REG_EXP = "\\¿+|\\?+|\\°+|\\¬+|\\|+|\\!+|\\#+|\\$+|\\)+|"
@@ -39,6 +41,8 @@ public class Biciusuario implements Stakeholder{
                 date = new SimpleDateFormat("yyyy/MM/dd").parse(fechaNacimiento);
                 bicicletas = new ArrayList<>();
                 rutas=new ArrayList<>();
+                viajes=new ArrayList<>();
+                arboles=0;
                 System.out.println("creando biciusuario...");
             }else{
                 JPanel panel=new JPanel();
@@ -56,12 +60,17 @@ public class Biciusuario implements Stakeholder{
 
     public Bicycle darBicicleta(String serial){
         Bicycle bike=null;
-        for(int i=0;i<bicicletas.size();i++){
-            Bicicleta bici= (Bicicleta) bicicletas.get(i);
-            if(bici.getSerial().equals(serial)){
-                bike=bici;
+        try{
+            for(int i=0;i<bicicletas.size();i++){
+                Bicicleta bici= (Bicicleta) bicicletas.get(i);
+                if(bici.getSerial().equals(serial)){
+                    bike=bici;
+                }
             }
+        }catch (Exception e){
+
         }
+
         return bike;
     }
 
@@ -86,6 +95,21 @@ public class Biciusuario implements Stakeholder{
     public void addRuta(String codigo,String coorIni,String coorFin){
         Ruta r=new Ruta(coorIni,coorFin,codigo);
         rutas.add(r);
+    }
+
+    public void eliminarRuta(String codigo){
+        for(int i=0;i<rutas.size();i++){
+            if(rutas.get(i).getCodigo().equals(codigo)){
+                rutas.remove(rutas.get(i));
+            }
+        }
+    }
+
+    public void addViaje(String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros){
+        Viaje travel=new Viaje(coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
+        viajes.add(travel);
+        arboles=arboles+distanciaKilometros;
+        System.out.println("El usuario "+getNombre()+" obtiene "+distanciaKilometros+" arboles por este viaje!");
     }
 
     @Override

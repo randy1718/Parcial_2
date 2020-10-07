@@ -5,6 +5,7 @@
  */
 package parcial_2;
 
+import javax.annotation.processing.SupportedSourceVersion;
 import java.util.ArrayList;
 
 /**
@@ -368,8 +369,18 @@ public class Master implements Operaciones{
     }
 
     @Override
-    public void addViaje(String emailUser,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad) {
-
+    public void addViaje(String emailUser,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros) {
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Biciusuario) {
+                if (miembros.get(i).getEmail().equals(emailUser)) {
+                    ((Biciusuario) miembros.get(i)).addViaje(coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
+                }
+            }else if(miembros.get(i) instanceof Empresa){
+                if (miembros.get(i).getEmail().equals(emailUser)) {
+                    ((Empresa) miembros.get(i)).addViaje(coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
+                }
+            }
+        }
     }
 
     @Override
@@ -389,12 +400,30 @@ public class Master implements Operaciones{
 
     @Override
     public void eliminarRuta(String emailUser,String codigoRuta) {
-
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Biciusuario) {
+                if (miembros.get(i).getEmail().equals(emailUser)) {
+                    ((Biciusuario) miembros.get(i)).eliminarRuta(codigoRuta);
+                }
+            }else if(miembros.get(i) instanceof Empresa){
+                if (miembros.get(i).getEmail().equals(emailUser)) {
+                    ((Empresa) miembros.get(i)).eliminarRuta(codigoRuta);
+                }
+            }
+        }
     }
 
     @Override
     public String botonPanico(String email, String mensaje) {
-        return null;
+        String respuesta="";
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof MoveloAdapter){
+                ((MoveloAdapter) miembros.get(i)).addMensaje(email,mensaje);
+                respuesta="Mensaje enviado correctamente";
+                System.out.println(respuesta);
+            }
+        }
+        return respuesta;
     }
 
 }

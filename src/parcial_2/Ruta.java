@@ -10,4 +10,8 @@ public class Ruta {
         code=codigo;
     }
 
+    public String getCodigo(){
+        return code;
+    }
+
 }

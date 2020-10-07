@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 public class Empresa implements Stakeholder{
     private ArrayList<Stakeholder> miembros;
     private ArrayList<Ruta> rutas;
+    private ArrayList<Viaje> viajes;
+    private int arboles;
     private String name, direccion, nit, email, password;
     private String REG_EXP = "\\¿+|\\?+|\\°+|\\¬+|\\|+|\\!+|\\#+|\\$+|\\)+|"
                 + "\\%+|\\&+|\\(+|\\=+|\\’+|\\¡+|\\++|\\*+|\\~+|\\[+|\\]"
@@ -38,6 +40,8 @@ public class Empresa implements Stakeholder{
            this.direccion=direccion;
            miembros =new ArrayList<>();
            rutas=new ArrayList<>();
+           viajes=new ArrayList<>();
+           arboles=0;
            System.out.println("creando empresa...");
         }else{
            JPanel panel=new JPanel();
@@ -82,6 +86,20 @@ public class Empresa implements Stakeholder{
     public void addRuta(String codigo,String coorIni,String coorFin){
         Ruta r=new Ruta(coorIni,coorFin,codigo);
         rutas.add(r);
+    }
+
+    public void eliminarRuta(String codigo){
+        for(int i=0;i<rutas.size();i++){
+            if(rutas.get(i).getCodigo().equals(codigo)){
+                rutas.remove(rutas.get(i));
+            }
+        }
+    }
+
+    public void addViaje(String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros){
+        Viaje travel=new Viaje(coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
+        viajes.add(travel);
+        arboles=arboles+distanciaKilometros;
     }
 
     @Override
