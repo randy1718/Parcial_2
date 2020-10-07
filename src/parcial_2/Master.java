@@ -190,52 +190,146 @@ public class Master implements Operaciones{
 
     @Override
     public String mostrarBiciusuarios() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String respuesta="Estos son los biciusuarios:\n\n";
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Biciusuario) {
+                respuesta = respuesta + miembros.get(i).mostrarDatos();
+            }
+        }
+        System.out.println(respuesta);
+        return respuesta;
     }
 
     @Override
     public String mostrarEmpresas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String respuesta="Estas son las empresas:\n\n";
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Empresa) {
+                respuesta = respuesta + miembros.get(i).mostrarDatos();
+            }
+        }
+        System.out.println(respuesta);
+        return respuesta;
     }
 
     @Override
     public void actualizarNombreEmpresa(String emailEmpresa,String nameNuevo) {
-
+        if(emailEmpresa.equals("")||nameNuevo.equals("")) {
+            System.out.println("Los datos no pueden estar vacios");
+        }else{
+            for (int i = 0; i < miembros.size(); i++) {
+                if (miembros.get(i) instanceof Empresa) {
+                    if (miembros.get(i).getEmail().equals(emailEmpresa)) {
+                        miembros.get(i).setNombre(nameNuevo);
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void actualizarEmailEmpresa(String emailEmpresa,String emailNuevo) {
-
+        if(emailEmpresa.equals("")||emailNuevo.equals("")) {
+            System.out.println("Los datos no pueden estar vacios");
+        }else{
+            for (int i = 0; i < miembros.size(); i++) {
+                if (miembros.get(i) instanceof Empresa) {
+                    if (miembros.get(i).getEmail().equals(emailEmpresa)) {
+                        ((Empresa) miembros.get(i)).setEmail(emailNuevo);
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void actualizarPassowordEmpresa(String emailEmpresa,String passwordNuevo) {
-
+        if(emailEmpresa.equals("")||passwordNuevo.equals("")) {
+            System.out.println("Los datos no pueden estar vacios");
+        }else{
+            for (int i = 0; i < miembros.size(); i++) {
+                if (miembros.get(i) instanceof Empresa) {
+                    if (miembros.get(i).getEmail().equals(emailEmpresa)) {
+                        ((Empresa) miembros.get(i)).setPassword(passwordNuevo);
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void actualizarDireccionEmpresa(String emailEmpresa,String direccionNueva) {
-
+        if(emailEmpresa.equals("")||direccionNueva.equals("")) {
+            System.out.println("Los datos no pueden estar vacios");
+        }else{
+            for (int i = 0; i < miembros.size(); i++) {
+                if (miembros.get(i) instanceof Empresa) {
+                    if (miembros.get(i).getEmail().equals(emailEmpresa)) {
+                        ((Empresa) miembros.get(i)).setDireccion(direccionNueva);
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void actualizarNitEmpresa(String emailEmpresa,String nitNuevo) {
-
+        if(emailEmpresa.equals("")||nitNuevo.equals("")) {
+            System.out.println("Los datos no pueden estar vacios");
+        }else{
+            for (int i = 0; i < miembros.size(); i++) {
+                if (miembros.get(i) instanceof Empresa) {
+                    if (miembros.get(i).getEmail().equals(emailEmpresa)) {
+                        ((Empresa) miembros.get(i)).setNit(nitNuevo);
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void actualizarNombreBiciusuario(String correo,String nombreNuevo) {
-
+        if(correo.equals("")||nombreNuevo.equals("")) {
+            System.out.println("Los datos no pueden estar vacios");
+        }else{
+            for (int i = 0; i < miembros.size(); i++) {
+                if (miembros.get(i) instanceof Biciusuario) {
+                    if (miembros.get(i).getEmail().equals(correo)) {
+                        miembros.get(i).setNombre(nombreNuevo);
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void actualizarEmailBiciusuario(String correo,String emailNuevo) {
-
+        if(correo.equals("")||emailNuevo.equals("")) {
+            System.out.println("Los datos no pueden estar vacios");
+        }else{
+            for (int i = 0; i < miembros.size(); i++) {
+                if (miembros.get(i) instanceof Biciusuario) {
+                    if (miembros.get(i).getEmail().equals(correo)) {
+                        miembros.get(i).setEmail(emailNuevo);
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void actualizarPasswordBiciusuario(String correo,String claveNueva) {
-
+        if(correo.equals("")||claveNueva.equals("")) {
+            System.out.println("Los datos no pueden estar vacios");
+        }else{
+            for (int i = 0; i < miembros.size(); i++) {
+                if (miembros.get(i) instanceof Biciusuario) {
+                    if (miembros.get(i).getEmail().equals(correo)) {
+                        miembros.get(i).setPassword(claveNueva);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -261,21 +355,40 @@ public class Master implements Operaciones{
 
     @Override
     public String mostrarBicicletas(String emailBiciusuario) {
-        return null;
+        String respuesta="Estas son las bicicletas:\n\n";
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Biciusuario) {
+                if(miembros.get(i).getEmail().equals(emailBiciusuario)){
+                    respuesta = respuesta + ((Biciusuario) miembros.get(i)).getBicicletas();
+                }
+            }
+        }
+        System.out.println(respuesta);
+        return respuesta;
     }
 
     @Override
-    public void addViaje(String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad) {
+    public void addViaje(String emailUser,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad) {
 
     }
 
     @Override
-    public void addRuta(String emailBiciusuario, String codigoRuta,String coordenadasIniciales,String coordenadasFinales) {
-
+    public void addRuta(String emailUser, String codigoRuta,String coordenadasIniciales,String coordenadasFinales) {
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Biciusuario) {
+                if (miembros.get(i).getEmail().equals(emailUser)) {
+                    ((Biciusuario) miembros.get(i)).addRuta(codigoRuta,coordenadasIniciales,coordenadasFinales);
+                }
+            }else if(miembros.get(i) instanceof Empresa){
+                if (miembros.get(i).getEmail().equals(emailUser)) {
+                    ((Empresa) miembros.get(i)).addRuta(codigoRuta,coordenadasIniciales,coordenadasFinales);
+                }
+            }
+        }
     }
 
     @Override
-    public void eliminarRuta(String emailBiciusuario,String codigoRuta) {
+    public void eliminarRuta(String emailUser,String codigoRuta) {
 
     }
 

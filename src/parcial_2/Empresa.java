@@ -17,6 +17,7 @@ import javax.swing.JPanel;
  */
 public class Empresa implements Stakeholder{
     private ArrayList<Stakeholder> miembros;
+    private ArrayList<Ruta> rutas;
     private String name, direccion, nit, email, password;
     private String REG_EXP = "\\¿+|\\?+|\\°+|\\¬+|\\|+|\\!+|\\#+|\\$+|\\)+|"
                 + "\\%+|\\&+|\\(+|\\=+|\\’+|\\¡+|\\++|\\*+|\\~+|\\[+|\\]"
@@ -36,7 +37,8 @@ public class Empresa implements Stakeholder{
            this.nit=nit;
            this.direccion=direccion;
            miembros =new ArrayList<>();
-            System.out.println("creando empresa...");
+           rutas=new ArrayList<>();
+           System.out.println("creando empresa...");
         }else{
            JPanel panel=new JPanel();
            JOptionPane.showMessageDialog(panel,"La empresa "+nombre+" tiene la contraseña o el correo invalidos","Error", JOptionPane.ERROR_MESSAGE);
@@ -77,6 +79,11 @@ public class Empresa implements Stakeholder{
         return respuesta;
     }
 
+    public void addRuta(String codigo,String coorIni,String coorFin){
+        Ruta r=new Ruta(coorIni,coorFin,codigo);
+        rutas.add(r);
+    }
+
     @Override
     public String mostrarDatos() {
         return "Datos Empresa:\nNombre: "+name+"\nNit: "+nit+"\nEmail: "+email+"\nDireccion: "+direccion+"\n";
@@ -114,6 +121,22 @@ public class Empresa implements Stakeholder{
             }
         }else{
             System.out.println("La clave nueva no puede estar vacia!");
+        }
+    }
+
+    public void setNit(String nit){
+        if(!nit.equals("")){
+            this.nit=nit;
+        }else{
+            System.out.println("El nit no puede estar vacia!");
+        }
+    }
+
+    public void setDireccion(String direccionNueva){
+        if(!direccionNueva.equals("")){
+            direccion=direccionNueva;
+        }else{
+            System.out.println("La direccion no puede estar vacia!");
         }
     }
 

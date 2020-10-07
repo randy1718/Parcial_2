@@ -12,7 +12,7 @@ public class ModeloDecorator extends BicicletaDecorator {
     @Override
     public String showBicycle() {
         String respuesta=super.showBicycle();
-        return respuesta+" Modelo: "+modelo;
+        return respuesta+" \nModelo: "+modelo;
     }
 
 }

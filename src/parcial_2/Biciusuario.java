@@ -6,7 +6,9 @@
 package parcial_2;
 
 import javax.swing.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +18,9 @@ import java.util.regex.Pattern;
  */
 public class Biciusuario implements Stakeholder{
     private ArrayList<Bicycle> bicicletas;
-    private String name,correo,clave,date;
+    private ArrayList<Ruta> rutas;
+    private String name,correo,clave;
+    private Date date;
     private String REG_EXP = "\\¿+|\\?+|\\°+|\\¬+|\\|+|\\!+|\\#+|\\$+|\\)+|"
                 + "\\%+|\\&+|\\(+|\\=+|\\’+|\\¡+|\\++|\\*+|\\~+|\\[+|\\]"
                 + "+|\\{+|\\}+|\\^+|\\<+|\\>+|\\/+|\\\"+";
@@ -32,8 +36,9 @@ public class Biciusuario implements Stakeholder{
                 name = nombre;
                 correo = email;
                 clave = password;
-                date = fechaNacimiento;
+                date = new SimpleDateFormat("yyyy/MM/dd").parse(fechaNacimiento);
                 bicicletas = new ArrayList<>();
+                rutas=new ArrayList<>();
                 System.out.println("creando biciusuario...");
             }else{
                 JPanel panel=new JPanel();
@@ -69,9 +74,23 @@ public class Biciusuario implements Stakeholder{
         }
     }
 
+    public String getBicicletas(){
+        String respuesta="";
+        for(int i=0;i<bicicletas.size();i++){
+            Bicycle bici= bicicletas.get(i);
+                respuesta=respuesta+bici.showBicycle();
+        }
+        return respuesta;
+    }
+
+    public void addRuta(String codigo,String coorIni,String coorFin){
+        Ruta r=new Ruta(coorIni,coorFin,codigo);
+        rutas.add(r);
+    }
+
     @Override
     public String mostrarDatos() {
-        return "Datos Biciusuario: \n"+"Nombre: "+name+"\nEmail: "+correo+"\n\n";
+        return "Datos Biciusuario: \n"+"Nombre: "+name+"\nEmail: "+correo+"\nFecha de Nacimiento: "+date+"\n\n";
     }
 
     @Override
@@ -122,6 +141,10 @@ public class Biciusuario implements Stakeholder{
     @Override
     public String getPassword() {
         return clave;
+    }
+
+    public String getFechaNacimiento(){
+        return date.toString();
     }
 
     @Override

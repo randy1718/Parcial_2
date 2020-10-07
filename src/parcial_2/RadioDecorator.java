@@ -21,6 +21,6 @@ public class RadioDecorator extends BicicletaDecorator {
     @Override
     public String showBicycle() {
         String respuesta=super.showBicycle();
-        return respuesta+" Modelo: "+radio;
+        return respuesta+"\nRadio de ruedas: "+radio;
     }
 }

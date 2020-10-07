@@ -21,8 +21,8 @@ public class Parcial_2 {
         AccesoProxy acceso=AccesoProxy.laConstructora();
 
         acceso.addMoveloUser("movelo20","movelo@movelo.com","12345Q%3");
-        acceso.addBiciusuario("Randy", "rrandymiller@gmail.com", "123456A$", "17-09-2000");
-        acceso.addBiciusuario("Alexander", "alexjg@gmail.com", "87!R54321", "1-08-2002");
+        acceso.addBiciusuario("Randy", "rrandymiller@gmail.com", "123456A$", "2000/09/17");
+        acceso.addBiciusuario("Alexander", "alexjg@gmail.com", "87!R54321", "2002/08/01");
         acceso.addEmpresa("Apple","123456","apple@apple.com","carrera 7 # 34-12","ASDFqw1$");
         Bicycle bike=new ModeloDecorator(new Bicicleta("123 ","src ","rojo "),"2020");
 
@@ -33,6 +33,7 @@ public class Parcial_2 {
 
         String r=acceso.validacionDatos("rrandymiller@gmail.com", "123456A$");
         acceso.addBicicleta("rrandymiller@gmail.com",bike);
+        acceso.mostrarBicicletas("rrandymiller@gmail.com");
 
 
         String s=acceso.validacionDatos("alexjg@gmail.com", "87!R54321");
@@ -43,6 +44,9 @@ public class Parcial_2 {
         //acceso.eliminarBiciusuario("rrandymiller@gmail.com");
 
         String my=acceso.mostrarMiembros();
+        acceso.mostrarEmpresas();
+        acceso.mostrarBiciusuarios();
+
 
         System.out.print(""+r+s+m+bike.showBicycle());
         

@@ -45,23 +45,48 @@ public class AccesoProxy implements Operaciones{
     }
 
     @Override
-    public void addViaje(String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad) {
-        this.master.addViaje(coordenadasIniciales,coordenadasFinales,duracion,velocidad);
+    public void addViaje(String emailUser,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad) {
+        if(validacion.equals("true") && email.equals(emailUser)) {
+            this.master.addViaje(emailUser,coordenadasIniciales,coordenadasFinales,duracion,velocidad);
+        }else if(validacion.equals("Movelo")) {
+            this.master.addViaje(emailUser,coordenadasIniciales,coordenadasFinales,duracion,velocidad);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
+
     }
 
     @Override
-    public void addRuta(String emailBiciusuario, String codigoRuta,String coordenadasIniciales,String coordenadasFinales) {
-        this.master.addRuta(emailBiciusuario,codigoRuta,coordenadasIniciales,coordenadasFinales);
+    public void addRuta(String emailUser, String codigoRuta,String coordenadasIniciales,String coordenadasFinales) {
+        if(validacion.equals("true") && email.equals(emailUser)) {
+            this.master.addRuta(emailUser, codigoRuta, coordenadasIniciales, coordenadasFinales);
+        }else if(validacion.equals("Movelo")) {
+            this.master.addRuta(emailUser, codigoRuta, coordenadasIniciales, coordenadasFinales);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
-    public void eliminarRuta(String emailBiciusuario,String codigoRuta) {
-        this.master.eliminarRuta(emailBiciusuario,codigoRuta);
+    public void eliminarRuta(String emailUser,String codigoRuta) {
+        if(validacion.equals("true") && email.equals(emailUser)) {
+            this.master.eliminarRuta(emailUser,codigoRuta);
+        }else if(validacion.equals("Movelo")) {
+            this.master.eliminarRuta(emailUser,codigoRuta);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
     public String botonPanico(String email, String mensaje) {
-        return this.master.botonPanico(email,mensaje);
+        String respuesta="";
+        if(validacion.equals("true") && this.email.equals(email)) {
+            respuesta= this.master.botonPanico(email, mensaje);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
+        return respuesta;
     }
 
     @Override
@@ -123,77 +148,151 @@ public class AccesoProxy implements Operaciones{
 
     @Override
     public Stakeholder buscarBiciusuario(String email) {
-        return this.master.buscarBiciusuario(email);
+        Stakeholder biciusuario=null;
+        if(validacion.equals("Movelo") || validacion.equals("true")) {
+            biciusuario=this.master.buscarBiciusuario(email);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
+        return biciusuario;
     }
 
     @Override
     public Stakeholder buscarEmpresa(String email) {
-        return this.master.buscarEmpresa(email);
+        Stakeholder empresa=null;
+        if(validacion.equals("Movelo")) {
+            empresa=this.master.buscarEmpresa(email);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
+        return empresa;
     }
 
     @Override
     public Stakeholder buscarMiembroEmpresa(String emailEmpresa,String emailMiembro) {
-        return this.master.buscarMiembroEmpresa(emailEmpresa,emailMiembro);
+        Stakeholder miembro=null;
+        if(validacion.equals("true") && this.email.equals(emailEmpresa)) {
+            miembro=this.master.buscarMiembroEmpresa(emailEmpresa, emailMiembro);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
+        return miembro;
     }
 
     @Override
     public Bicycle buscarBicicleta(String emailBiciusuario,String serial) {
-        return this.master.buscarBicicleta(emailBiciusuario,serial);
+        Bicycle bike=null;
+        if(validacion.equals("true") && this.email.equals(emailBiciusuario)) {
+            bike=this.master.buscarBicicleta(emailBiciusuario, serial);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
+        return bike;
     }
 
     @Override
     public void addMiembroEmpresa(String emailEmpresa, Stakeholder miembro) {
-        this.master.addMiembroEmpresa(emailEmpresa,miembro);
+        if(validacion.equals("true") && this.email.equals(emailEmpresa)) {
+            this.master.addMiembroEmpresa(emailEmpresa, miembro);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
     public void eliminarMiembroEmpresa(String emailEmpresa, String emailUsuario) {
+        if(validacion.equals("true") && this.email.equals(emailEmpresa)){
         this.master.eliminarMiembroEmpresa(emailEmpresa,emailUsuario);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
     public String mostrarMiembros() {
-        return this.master.mostrarMiembros();
+        String respuesta="";
+        if(validacion.equals("Movelo")) {
+            respuesta=this.master.mostrarMiembros();
+        }
+        return respuesta;
     }
 
     @Override
     public String mostrarMiembrosEmpresa(String emailEmpresa) {
-        return this.master.mostrarMiembrosEmpresa(emailEmpresa);
+        String respuesta="";
+        if(validacion.equals("true") && this.email.equals(emailEmpresa)){
+            respuesta=this.master.mostrarMiembrosEmpresa(emailEmpresa);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
+        return respuesta;
     }
 
     @Override
     public String mostrarBiciusuarios() {
-        return this.master.mostrarBiciusuarios();
+        String respuesta="";
+        if(validacion.equals("Movelo")) {
+            respuesta=this.master.mostrarBiciusuarios();
+        }else{
+            System.out.println("No tienes acceso!");
+        }
+        return respuesta;
     }
 
     @Override
     public String mostrarEmpresas() {
-        return this.master.mostrarEmpresas();
+        String respuesta="";
+        if(validacion.equals("Movelo")) {
+            respuesta=this.master.mostrarEmpresas();
+        }else{
+            System.out.println("No tienes acceso!");
+        }
+        return respuesta;
     }
 
     @Override
     public void actualizarNombreEmpresa(String emailEmpresa,String nameNuevo) {
-        this.master.actualizarNombreEmpresa(emailEmpresa,nameNuevo);
+        if(validacion.equals("true") && email.equals(emailEmpresa)) {
+            this.master.actualizarNombreEmpresa(emailEmpresa, nameNuevo);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
     public void actualizarEmailEmpresa(String emailEmpresa,String emailNuevo) {
-        this.master.actualizarEmailEmpresa(emailEmpresa,emailNuevo);
+        if(validacion.equals("true") && email.equals(emailEmpresa)) {
+            this.master.actualizarEmailEmpresa(emailEmpresa, emailNuevo);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
     public void actualizarPassowordEmpresa(String emailEmpresa,String passwordNuevo) {
-        this.master.actualizarPassowordEmpresa(emailEmpresa,passwordNuevo);
+        if(validacion.equals("true") && email.equals(emailEmpresa)) {
+            this.master.actualizarPassowordEmpresa(emailEmpresa, passwordNuevo);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
     public void actualizarDireccionEmpresa(String emailEmpresa,String direccionNueva) {
-        this.master.actualizarDireccionEmpresa(emailEmpresa,direccionNueva);
+        if(validacion.equals("true") && email.equals(emailEmpresa)) {
+            this.master.actualizarDireccionEmpresa(emailEmpresa, direccionNueva);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override
     public void actualizarNitEmpresa(String emailEmpresa,String nitNuevo) {
-        this.master.actualizarNitEmpresa(emailEmpresa,nitNuevo);
+        if(validacion.equals("true") && email.equals(emailEmpresa)) {
+            this.master.actualizarNitEmpresa(emailEmpresa, nitNuevo);
+        }else{
+            System.out.println("No tienes acceso!");
+        }
     }
 
     @Override

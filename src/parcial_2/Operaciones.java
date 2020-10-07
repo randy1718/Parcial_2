@@ -37,9 +37,9 @@ public interface Operaciones {
     public void actualizarPasswordBiciusuario(String correo,String claveNueva);
     public String validacionDatos(String email, String password);
     public String mostrarBicicletas(String emailBiciusuario);
-    public void addViaje(String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad);
-    public void addRuta(String emailBiciusuario, String codigoRuta,String coordenadasIniciales,String coordenadasFinales);
-    public void eliminarRuta(String emailBiciusuario,String codigoRuta);
+    public void addViaje(String emailUser,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad);
+    public void addRuta(String emailUser, String codigoRuta,String coordenadasIniciales,String coordenadasFinales);
+    public void eliminarRuta(String emailUser,String codigoRuta);
     public String botonPanico(String email,String mensaje);
     
 }
