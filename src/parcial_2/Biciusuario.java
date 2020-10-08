@@ -6,6 +6,7 @@
 package parcial_2;
 
 import javax.swing.*;
+import java.security.spec.ECField;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -105,17 +106,26 @@ public class Biciusuario extends Stakeholder{
     }
 
     public void addRuta(String codigo,String coorIni,String coorFin){
-        Ruta r=new Ruta(coorIni,coorFin,codigo);
-        rutas.add(r);
+        if(codigo.isEmpty() || coorIni.isEmpty() || coorFin.isEmpty()){
+           System.out.println("Alguno de los valores esta vacio y por eso no se puede crear la ruta");
+        }else {
+            Ruta r = new Ruta(coorIni, coorFin, codigo);
+            rutas.add(r);
+        }
     }
 
     public Ruta getRuta(String codigo){
         Ruta respuesta=null;
-        for(int i=0;i<rutas.size();i++){
-           if(rutas.get(i).getCodigo().equals(codigo)){
-               respuesta=rutas.get(i);
-           }
+        try{
+            for(int i=0;i<rutas.size();i++){
+                if(rutas.get(i).getCodigo().equals(codigo)){
+                    respuesta=rutas.get(i);
+                }
+            }
+        }catch (Exception e){
+
         }
+
         return respuesta;
     }
 

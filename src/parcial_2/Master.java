@@ -334,26 +334,6 @@ public class Master{
         }
     }
 
-    public String validacionDatos(String email, String password) {
-        String respuesta="false";
-        try{
-            for(int i=0;i<miembros.size();i++){
-                Stakeholder miembro=miembros.get(i);
-                if(miembro.getEmail().equals(email) && miembro.getPassword().equals(password) && miembro instanceof MoveloAdapter){
-                    respuesta="Movelo";
-                    break;
-                }else if(miembro.getEmail().equals(email) && miembro.getPassword().equals(password)){
-                    respuesta="true";
-                    break;
-                }
-            }
-        }catch (Exception e){
-
-        }
-
-        return respuesta;
-    }
-
     public String mostrarBicicletas(String emailBiciusuario) {
         String respuesta="Estas son las bicicletas:\n\n";
         for(int i=0;i<miembros.size();i++){

@@ -99,11 +99,45 @@ class BiciusuarioTest {
     void addRuta(){
         Biciusuario user=new Biciusuario("Juan jose","jose@gmail.com","AERqw12$#","2000/12/12");
         user.addRuta("12345","1234.56789","12345.23456");
+        Ruta r=null;
+        String code="";
+        String cI="";
+        String cF="";
+        try{
+            r=user.getRuta("12345");
+            code=r.getCodigo();
+            cI=r.getCoordIniciales();
+            cF=r.getCoordFinales();
+        }catch (Exception e){
+            fail("La ruta no se adicionó correctamente!");
+        }
+
+        if(code.isEmpty() || cI.isEmpty() || cF.isEmpty()){
+            fail("Alguno de los valores de la ruta esta vacio. No se debe crear la ruta asi.");
+        }else{
+            assertEquals("123451234.5678912345.23456", code + cI + cF);
+        }
+    }
+
+    @Test
+    void getRuta(){
+        Biciusuario user=new Biciusuario("Juan jose","jose@gmail.com","AERqw12$#","2000/12/12");
+        user.addRuta("12345","12354.56789","12345.23456");
         Ruta r=user.getRuta("12345");
         String code=r.getCodigo();
         String cI=r.getCoordIniciales();
         String cF=r.getCoordFinales();
-        assertEquals("123451234.5678912345.23456",code+cI+cF);
+        assertEquals("1234512354.5678912345.23456",code+cI+cF);
+    }
+
+    @Test
+    void eliminarRuta(){
+
+    }
+
+    @Test
+    void addViaje(){
+
     }
 
     @Test

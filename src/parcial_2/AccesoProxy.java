@@ -55,12 +55,32 @@ public class AccesoProxy{
             numPrimo=primo;
             validacion = respuesta;
             this.email=email;
+            System.out.println("Real: "+primo);
         }
         System.out.println(respuesta);
-        return cifrar(primo);
+        return primo;
     }
 
-    private BigInteger cifrar(BigInteger primo){
+    /**private BigInteger cifrar(BigInteger primo){
+        String number=primo.toString();
+        int[] numeros=new int[number.length()];
+        int[] cifrados=new int[number.length()*4];
+        for(int i=0;i<number.length();i++){
+
+            numeros[i]=number.charAt(i)-'0';
+            String sa=Long.toBinaryString(numeros[i]);
+            cifrados[i]=Integer.parseInt(sa);
+
+        }
+        StringBuilder s=new StringBuilder();
+        for(int n:cifrados){
+            s.append(n);
+        }
+        BigInteger num=new BigInteger(s.toString());
+        return num;
+    }
+/**
+    private BigInteger descifrar(BigInteger primo){
 
         String number=primo.toString();
         int[] numeros=new int[number.length()];
@@ -70,16 +90,15 @@ public class AccesoProxy{
         }
         StringBuilder s=new StringBuilder();
         for(int n:numeros){
-            n=n+10;
             s.append(n);
+
         }
-        BigInteger num=new BigInteger(s.toString());
+        BigInteger num=new BigInteger("");
         return num;
-    }
+    }*/
 
 
     public void acceder(BigInteger primo, String metodo){
-
         if(numPrimo==primo && validacion.equals("Biciusuario")) {
             Master master=Master.laConstructora();
             String[] datos=metodo.split(",");

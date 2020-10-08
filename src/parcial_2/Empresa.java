@@ -67,6 +67,9 @@ public class Empresa extends Stakeholder{
         for(int i=0;i<miembros.size();i++){
             if(miembros.get(i).getEmail().equals(email)){
                 miembros.remove(i);
+                System.out.println("Miembro eliminado correctamente!");
+            }else{
+                System.out.println("No se encontro al miembro y no se elimino!");
             }
         }
     }
@@ -175,6 +178,10 @@ public class Empresa extends Stakeholder{
 
     public String getNit(){
         return nit;
+    }
+
+    public String getDireccion(){
+        return direccion;
     }
     
     @Override

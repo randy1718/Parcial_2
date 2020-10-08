@@ -31,7 +31,7 @@ public class Parcial_2 {
         access.acceder(primo,"addBicicleta,rrandymiller@gmail.com,1234,src,rojo");
         access.acceder(primo,"buscarBicicleta,rrandymiller@gmail.com,1234");
         access.acceder(primo,"botonPanico,rrandymiller@gmail.com,Ayuda me robaron la bicicleta");
-        System.out.println(""+primo);
+        System.out.println(primo);
 
         BigInteger primo1=access.validacionDatos("apple@apple.com","ASDFqw1$");
         access.acceder(primo1,"addMiembroEmpresa,apple@apple.com,rrandymiller@gmail.com");
