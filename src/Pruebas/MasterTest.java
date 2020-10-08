@@ -27,7 +27,7 @@ class MasterTest {
     @Test
     void addEmpresa() {
         Master acceso=Master.laConstructora();
-        Stakeholder empresa=new Empresa("Amazon","123456","amazon@gmail.com","carrera 8 #109-08","1234aSAD%$");
+        Stakeholder empresa=new Empresa("Amazon","amazon@gmail.com","1234aSAD%$","carrera 8 #109-08","123456");
         acceso.addEmpresa(empresa);
         Stakeholder miembro=acceso.buscarEmpresa("amazon@gmail.com");
         String name=miembro.getNombre();
@@ -56,7 +56,7 @@ class MasterTest {
         Stakeholder miembro=acceso.buscarBiciusuario("camila@outlook.com");
         Bicycle bike=new Bicicleta("1234","src","rojo");
         acceso.addBicicleta("camila@outlook.com",bike);
-        acceso.buscarBicicleta("1234","1234");
+        acceso.buscarBicicleta("camila@outlook.com","1234");
     }
 
     @Test

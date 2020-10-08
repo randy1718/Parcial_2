@@ -15,7 +15,6 @@ import java.util.Random;
  */
 public class AccesoProxy{
     private static AccesoProxy instancia = null;
-    private final Master master=Master.laConstructora();
     private final ArrayList<Stakeholder> stakeholders=new ArrayList<>();
     protected String validacion="false";
     protected String email="";
@@ -56,166 +55,186 @@ public class AccesoProxy{
             numPrimo=primo;
             validacion = respuesta;
             this.email=email;
-
         }
         System.out.println(respuesta);
-        return primo;
+        return cifrar(primo);
+    }
+
+    private BigInteger cifrar(BigInteger primo){
+
+        String number=primo.toString();
+        int[] numeros=new int[number.length()];
+        for(int i=0;i<number.length();i++){
+            numeros[i]=number.charAt(i)-'0';
+
+        }
+        StringBuilder s=new StringBuilder();
+        for(int n:numeros){
+            n=n+10;
+            s.append(n);
+        }
+        BigInteger num=new BigInteger(s.toString());
+        return num;
     }
 
 
     public void acceder(BigInteger primo, String metodo){
+
         if(numPrimo==primo && validacion.equals("Biciusuario")) {
+            Master master=Master.laConstructora();
             String[] datos=metodo.split(",");
             switch (datos[0]) {
                 case "addBicicleta":
                     Bicycle bike=new Bicicleta(datos[2],datos[3],datos[4]);
-                    this.master.addBicicleta(datos[1], bike);
+                    master.addBicicleta(datos[1], bike);
                     break;
                 case "mostrarBicicletas":
-                    String respuesta = this.master.mostrarBicicletas(datos[1]);
+                    String respuesta = master.mostrarBicicletas(datos[1]);
                     System.out.println(respuesta);
                     break;
                 case "addViaje":
-                    this.master.addViaje(datos[1],datos[2],datos[3],datos[4],datos[5],Integer.parseInt(datos[6]));
+                    master.addViaje(datos[1],datos[2],datos[3],datos[4],datos[5],Integer.parseInt(datos[6]));
                     break;
 
                 case "addRuta":
-                    this.master.addRuta(datos[1],datos[2],datos[3],datos[4]);
+                    master.addRuta(datos[1],datos[2],datos[3],datos[4]);
                     break;
 
                 case "eliminarRuta":
-                    this.master.eliminarRuta(datos[1],datos[2]);
+                    master.eliminarRuta(datos[1],datos[2]);
                     break;
 
                 case "botonPanico":
-                    this.master.botonPanico(datos[1],datos[2]);
+                    master.botonPanico(datos[1],datos[2]);
                     break;
 
                 case "eliminarBiciusuario":
-                    this.master.eliminarBiciusuario(datos[1]);
+                    master.eliminarBiciusuario(datos[1]);
                     break;
 
                 case "eliminarBicicleta":
-                    this.master.eliminarBicicleta(datos[1],datos[2]);
+                    master.eliminarBicicleta(datos[1],datos[2]);
                     break;
 
                 case "buscarBicicleta":
-                    Bicycle bici=this.master.buscarBicicleta(datos[1],datos[2]);
+                    Bicycle bici=master.buscarBicicleta(datos[1],datos[2]);
                     break;
 
                 case "actualizarNombreBiciusuario":
-                    this.master.actualizarNombreBiciusuario(datos[1],datos[2]);
+                    master.actualizarNombreBiciusuario(datos[1],datos[2]);
                     break;
 
                 case "actualizarEmailBiciusuario":
-                    this.master.actualizarEmailBiciusuario(datos[1],datos[2]);
+                    master.actualizarEmailBiciusuario(datos[1],datos[2]);
                     break;
 
                 case "actualizarPasswordBiciusuario":
-                    this.master.actualizarPasswordBiciusuario(datos[1],datos[2]);
+                    master.actualizarPasswordBiciusuario(datos[1],datos[2]);
                     break;
 
             }
         }else if(numPrimo==primo && validacion.equals("Empresa")){
+            Master master=Master.laConstructora();
             String[] datos=metodo.split(",");
             switch (datos[0]) {
 
                 case "addViaje":
-                    this.master.addViaje(datos[1],datos[2],datos[3],datos[4],datos[5],Integer.parseInt(datos[6]));
+                    master.addViaje(datos[1],datos[2],datos[3],datos[4],datos[5],Integer.parseInt(datos[6]));
                     break;
 
                 case "addRuta":
-                    this.master.addRuta(datos[1],datos[2],datos[3],datos[4]);
+                    master.addRuta(datos[1],datos[2],datos[3],datos[4]);
                     break;
 
                 case "eliminarRuta":
-                    this.master.eliminarRuta(datos[1],datos[2]);
+                    master.eliminarRuta(datos[1],datos[2]);
                     break;
 
                 case "botonPanico":
-                    this.master.botonPanico(datos[1],datos[2]);
+                    master.botonPanico(datos[1],datos[2]);
                     break;
 
                 case "eliminarEmpresa":
-                    this.master.eliminarEmpresa(datos[1]);
+                    master.eliminarEmpresa(datos[1]);
                     break;
 
                 case "buscarBiciusuario":
-                    Stakeholder m=this.master.buscarBiciusuario(datos[1]);
+                    Stakeholder m=master.buscarBiciusuario(datos[1]);
                     break;
 
                 case "buscarMiembroEmpresa":
-                    Stakeholder member=this.master.buscarMiembroEmpresa(datos[1], datos[2]);
+                    Stakeholder member=master.buscarMiembroEmpresa(datos[1], datos[2]);
                     break;
 
                 case "addMiembroEmpresa":
-                    Stakeholder miembro=this.master.buscarBiciusuario(datos[2]);
-                    this.master.addMiembroEmpresa(datos[1], miembro);
+                    Stakeholder miembro=master.buscarBiciusuario(datos[2]);
+                    master.addMiembroEmpresa(datos[1], miembro);
                     break;
 
                 case "eliminarMiembroEmpresa":
-                    this.master.eliminarMiembroEmpresa(datos[1], datos[2]);
+                    master.eliminarMiembroEmpresa(datos[1], datos[2]);
                     break;
 
                 case "mostrarMiembrosEmpresa":
-                    String r=this.master.mostrarMiembrosEmpresa(datos[1]);
+                    String r=master.mostrarMiembrosEmpresa(datos[1]);
                     break;
 
                 case "actualizarNombreEmpresa":
-                    this.master.actualizarNombreEmpresa(datos[1], datos[2]);
+                    master.actualizarNombreEmpresa(datos[1], datos[2]);
                     break;
 
                 case "actualizarEmailEmpresa":
-                    this.master.actualizarEmailEmpresa(datos[1], datos[2]);
+                    master.actualizarEmailEmpresa(datos[1], datos[2]);
                     break;
 
                 case "actualizarPassowordEmpresa":
-                    this.master.actualizarPassowordEmpresa(datos[1], datos[2]);
+                    master.actualizarPassowordEmpresa(datos[1], datos[2]);
                     break;
 
                 case "actualizarDireccionEmpresa":
-                    this.master.actualizarDireccionEmpresa(datos[1], datos[2]);
+                    master.actualizarDireccionEmpresa(datos[1], datos[2]);
                     break;
 
                 case "actualizarNitEmpresa":
-                    this.master.actualizarNitEmpresa(datos[1], datos[2]);
+                    master.actualizarNitEmpresa(datos[1], datos[2]);
                     break;
             }
 
         } else if(numPrimo==primo && validacion.equals("Movelo")){
+            Master master=Master.laConstructora();
             String[] datos=metodo.split(",");
             switch (datos[0]) {
 
                 case "eliminarBiciusuario":
-                    this.master.eliminarBiciusuario(datos[1]);
+                    master.eliminarBiciusuario(datos[1]);
                     break;
 
                 case "eliminarEmpresa":
-                    this.master.eliminarEmpresa(datos[1]);
+                    master.eliminarEmpresa(datos[1]);
                     break;
 
                 case "buscarBiciusuario":
-                    Stakeholder m=this.master.buscarBiciusuario(datos[1]);
+                    Stakeholder m=master.buscarBiciusuario(datos[1]);
                     break;
 
                 case "buscarEmpresa":
-                    Stakeholder e=this.master.buscarEmpresa(datos[1]);
+                    Stakeholder e=master.buscarEmpresa(datos[1]);
                     break;
 
                 case "buscarUserMovelo":
-                    Stakeholder u=this.master.buscarUserMovelo(datos[1]);
+                    Stakeholder u=master.buscarUserMovelo(datos[1]);
                     break;
 
                 case "mostrarMiembros":
-                    String respuesta=this.master.mostrarMiembros();
+                    String respuesta=master.mostrarMiembros();
                     break;
 
                 case "mostrarBiciusuarios":
-                    String biusers=this.master.mostrarBiciusuarios();
+                    String biusers=master.mostrarBiciusuarios();
                     break;
 
                 case "mostrarEmpresas":
-                    String companies=this.master.mostrarEmpresas();
+                    String companies=master.mostrarEmpresas();
                     break;
 
             }
@@ -236,9 +255,10 @@ public class AccesoProxy{
             }
         }
         if (contador== stakeholders.size()) {
+            Master master=Master.laConstructora();
             Biciusuario user=new Biciusuario(nombre,email,password,fechaNacimiento);
             stakeholders.add(user);
-            this.master.addBiciusuario(user);
+            master.addBiciusuario(user);
         }
     }
 
@@ -254,9 +274,10 @@ public class AccesoProxy{
             }
         }
         if (contador== stakeholders.size()) {
+            Master master=Master.laConstructora();
             Empresa company=new Empresa(nombre,email,password,direccion,nit);
             stakeholders.add(company);
-            this.master.addEmpresa(company);
+            master.addEmpresa(company);
         }
     }
 
@@ -272,9 +293,10 @@ public class AccesoProxy{
             }
         }
         if (contador== stakeholders.size()) {
+            Master master=Master.laConstructora();
             MoveloAdapter movelo=new MoveloAdapter(username,email,password);
             stakeholders.add(movelo);
-            this.master.addMoveloUser(movelo);
+            master.addMoveloUser(movelo);
         }
     }
 
