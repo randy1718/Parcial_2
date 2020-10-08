@@ -61,6 +61,7 @@ class EmpresaTest {
         String nombre=member.getNombre();
         String email= member.getEmail();
         String password=member.getPassword();
+        assertEquals("Juan josejose@gmail.comAERqw12$#",nombre+email+password);
     }
 
     @Test
