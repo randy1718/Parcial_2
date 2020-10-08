@@ -9,7 +9,7 @@ package parcial_2;
  *
  * @author Randy
  */
-public class MoveloAdapter implements Stakeholder{
+public class MoveloAdapter extends Stakeholder{
     
     protected Movelo movelo;
     

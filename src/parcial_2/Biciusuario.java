@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  *
  * @author Randy
  */
-public class Biciusuario implements Stakeholder{
+public class Biciusuario extends Stakeholder{
     private ArrayList<Bicycle> bicicletas;
     private ArrayList<Ruta> rutas;
     private ArrayList<Viaje> viajes;
@@ -43,7 +43,7 @@ public class Biciusuario implements Stakeholder{
                 System.out.println("La fecha de nacimiento no tiene el formato valido (YYYY/MM/DD)");
             }
 
-            if(password.length()>=8 && matcher.find() && mayusculas>=1 && arroba==1 && numeros>=1 && !email.equals("") && !nombre.equals("") && fecha!=null) {
+            if(password.length()>=8 && matcher.find() && mayusculas>=1 && arroba==1 && numeros>=1 && !email.isEmpty() && !nombre.isEmpty() && fecha!=null) {
                 name = nombre;
                 correo = email;
                 clave = password;

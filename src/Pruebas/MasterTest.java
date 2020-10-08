@@ -2,10 +2,7 @@ package Pruebas;
 
 import org.junit.Assert.*;
 import org.junit.jupiter.api.Test;
-import parcial_2.AccesoProxy;
-import parcial_2.Biciusuario;
-import parcial_2.Master;
-import parcial_2.Stakeholder;
+import parcial_2.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +13,8 @@ class MasterTest {
     void addBiciusuario() {
 
         Master acceso=Master.laConstructora();
-        acceso.addBiciusuario("Alejandro","alejo@outlook.com","123qweQ%4","2000/12/22");
+        Stakeholder user=new Biciusuario("Alejandro","alejo@outlook.com","123qweQ%4","2000/12/22");
+        acceso.addBiciusuario(user);
         Stakeholder miembro=acceso.buscarBiciusuario("alejo@outlook.com");
         String name=miembro.getNombre();
         String email=miembro.getEmail();
@@ -29,16 +27,36 @@ class MasterTest {
     @Test
     void addEmpresa() {
         Master acceso=Master.laConstructora();
+        Stakeholder empresa=new Empresa("Amazon","123456","amazon@gmail.com","carrera 8 #109-08","1234aSAD%$");
+        acceso.addEmpresa(empresa);
+        Stakeholder miembro=acceso.buscarEmpresa("amazon@gmail.com");
+        String name=miembro.getNombre();
+        String email=miembro.getEmail();
+        String password=miembro.getPassword();
+        String nit=((Empresa)miembro).getNit();
+        assertEquals("Amazon123456amazon@gmail.com1234aSAD%$",name+nit+email+password);
     }
 
     @Test
     void addMoveloUser() {
         Master acceso=Master.laConstructora();
+        Stakeholder movelo=new MoveloAdapter("movelo20","movelo@movelo.com","12345Q%3");
+        acceso.addMoveloUser(movelo);
+        Stakeholder miembro=acceso.buscarUserMovelo("movelo@movelo.com");
+        String name=miembro.getNombre();
+        String email=miembro.getEmail();
+        assertEquals("movelo20movelo@movelo.com",name+email);
     }
 
     @Test
     void addBicicleta() {
         Master acceso=Master.laConstructora();
+        Stakeholder user=new Biciusuario("Camila","camila@outlook.com","123qweQ%4","2000/12/22");
+        acceso.addBiciusuario(user);
+        Stakeholder miembro=acceso.buscarBiciusuario("camila@outlook.com");
+        Bicycle bike=new Bicicleta("1234","src","rojo");
+        acceso.addBicicleta("camila@outlook.com",bike);
+        acceso.buscarBicicleta("1234","1234");
     }
 
     @Test

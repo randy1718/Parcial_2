@@ -16,10 +16,9 @@ class AccesoProxyTest {
         acceso.addBiciusuario("Juan jose","jose@gmail.com","AERqw12$#","2000/12/12");
         acceso.addEmpresa("Microsoft","12345678","micro10@gmail.com","Calle 6 # 56-12","ASDFa123#");
         acceso.addMoveloUser("movelo20","movelo@movelo.com","12345Q%3");
-        String answer1=acceso.validacionDatos("movelo@movelo.com","12345Q%3");
-        assertEquals("Movelo",answer1);
-        String answer2=acceso.validacionDatos("jose@gmail.com","AERqw12$#");
-        assertEquals("true",answer2);
+        acceso.validacionDatos("movelo@movelo.com","12345Q%3");
+
+        acceso.validacionDatos("jose@gmail.com","AERqw12$#");
 
     }
 

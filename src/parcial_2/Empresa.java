@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  *
  * @author Randy
  */
-public class Empresa implements Stakeholder{
+public class Empresa extends Stakeholder{
     private ArrayList<Stakeholder> miembros;
     private ArrayList<Ruta> rutas;
     private ArrayList<Viaje> viajes;
@@ -104,7 +104,7 @@ public class Empresa implements Stakeholder{
 
     @Override
     public String mostrarDatos() {
-        return "Datos Empresa:\nNombre: "+name+"\nNit: "+nit+"\nEmail: "+email+"\nDireccion: "+direccion+"\n";
+        return "Datos Empresa:\nNombre: "+name+"\nNit: "+nit+"\nEmail: "+email+"\nDireccion: "+direccion+"\n\n";
     }
 
     @Override

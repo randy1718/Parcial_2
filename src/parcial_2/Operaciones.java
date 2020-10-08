@@ -13,12 +13,14 @@ public interface Operaciones {
     public void addBiciusuario(String nombre,String email,String password, String fechaNacimiento);
     public void addEmpresa(String nombre,String nit, String email, String direccion,String password);
     public void addMoveloUser(String username,String email, String password);
+
     public void addBicicleta(String emailBiciusuario,Bicycle bike);
     public void eliminarBiciusuario(String email);
     public void eliminarEmpresa(String email);
     public void eliminarBicicleta(String emailBiciusuario,String serial);
     public Stakeholder buscarBiciusuario(String email);
     public Stakeholder buscarEmpresa(String email);
+    public Stakeholder buscarUserMovelo(String email);
     public Stakeholder buscarMiembroEmpresa(String emailEmpresa,String emailMiembro);
     public Bicycle buscarBicicleta(String emailBiciusuario,String serial);
     public void addMiembroEmpresa(String emailEmpresa,Stakeholder miembro);
@@ -35,7 +37,6 @@ public interface Operaciones {
     public void actualizarNombreBiciusuario(String correo,String nombreNuevo);
     public void actualizarEmailBiciusuario(String correo,String emailNuevo);
     public void actualizarPasswordBiciusuario(String correo,String claveNueva);
-    public String validacionDatos(String email, String password);
     public String mostrarBicicletas(String emailBiciusuario);
     public void addViaje(String emailUser,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros);
     public void addRuta(String emailUser, String codigoRuta,String coordenadasIniciales,String coordenadasFinales);

@@ -12,8 +12,10 @@ import java.util.ArrayList;
  *
  * @author Randy
  */
-public class Master implements Operaciones{
+public class Master{
+
     private final ArrayList<Stakeholder> miembros=new ArrayList<>();
+
     private static Master instancia = null;
 
     public static Master laConstructora(){
@@ -23,64 +25,20 @@ public class Master implements Operaciones{
        return instancia;
     }
 
-    @Override
-    public void addBiciusuario(String nombre, String email, String password, String fechaNacimiento) {
-        int contador = 0;
-        for(int i=0;i<miembros.size();i++){
-            if(miembros.get(i).getEmail().equals(email) && miembros.get(i).getNombre().equals(nombre)){
-                System.out.println("El biciusuario ya esta registrado");
-            }else if(miembros.get(i).getNombre().equals(nombre) || miembros.get(i).getEmail().equals(email)){
-                System.out.println("El email o el nombre de usuario ya estan registrados");
-            }else{
-                contador++;
-            }
-        }
-        if (contador== miembros.size()) {
-            Biciusuario user=new Biciusuario(nombre,email,password,fechaNacimiento);
-            miembros.add(user);
-        }
 
+    public void addBiciusuario(Stakeholder biciusuario) {
+        miembros.add(biciusuario);
     }
 
-    @Override
-    public void addEmpresa(String nombre, String nit, String email, String direccion, String password) {
-        int contador = 0;
-        for(int i=0;i<miembros.size();i++){
-            if(miembros.get(i).getEmail().equals(email) && miembros.get(i).getNombre().equals(nombre)){
-                System.out.println("La empresa ya esta registrado");
-            }else if(miembros.get(i).getNombre().equals(nombre) || miembros.get(i).getEmail().equals(email)){
-                System.out.println("El email o el nombre de la empresa ya estan registrados");
-            }else{
-                contador++;
-            }
-        }
-        if (contador== miembros.size()) {
-            Empresa company=new Empresa(nombre,email,password,direccion,nit);
-            miembros.add(company);
-        }
-
+    public void addEmpresa(Stakeholder empresa) {
+        miembros.add(empresa);
     }
 
-    @Override
-    public void addMoveloUser(String username, String email, String password) {
-        int contador = 0;
-        for(int i=0;i<miembros.size();i++){
-            if(miembros.get(i).getEmail().equals(email) && miembros.get(i).getNombre().equals(username)){
-                System.out.println("El usario de Movelo ya esta registrado");
-            }else if(miembros.get(i).getNombre().equals(username) || miembros.get(i).getEmail().equals(email)){
-                System.out.println("El email o el nombre del usuario de Movelo ya estan registrados");
-            }else{
-                contador++;
-            }
-        }
-        if (contador== miembros.size()) {
-            MoveloAdapter movelo=new MoveloAdapter(username,email,password);
-            miembros.add(movelo);
-        }
-
+    public void addMoveloUser(Stakeholder movelo) {
+        miembros.add(movelo);
     }
 
-    @Override
+
     public void addBicicleta(String emailBiciusuario,Bicycle bike) {
         for (Stakeholder miembro : miembros) {
             if (miembro instanceof Biciusuario) {
@@ -93,7 +51,7 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
+
     public void eliminarBiciusuario(String email) {
         for(int i=0;i<miembros.size();i++){
             if(miembros.get(i) instanceof Biciusuario) {
@@ -105,7 +63,7 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
+
     public void eliminarEmpresa(String email) {
         for(int i=0;i<miembros.size();i++){
             if(miembros.get(i) instanceof Empresa) {
@@ -117,7 +75,7 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
+
     public void eliminarBicicleta(String emailBiciusuario, String serial) {
         for(int i=0;i<miembros.size();i++){
             if(miembros.get(i) instanceof Biciusuario) {
@@ -128,7 +86,7 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
+
     public Stakeholder buscarBiciusuario(String email) {
         Stakeholder res=null;
         for(int i=0;i<miembros.size();i++){
@@ -141,7 +99,7 @@ public class Master implements Operaciones{
         return res;
     }
 
-    @Override
+
     public Stakeholder buscarEmpresa(String email) {
         Stakeholder res=null;
         for(int i=0;i<miembros.size();i++){
@@ -154,7 +112,19 @@ public class Master implements Operaciones{
         return res;
     }
 
-    @Override
+    public Stakeholder buscarUserMovelo(String email){
+        Stakeholder res=null;
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof MoveloAdapter) {
+                if (miembros.get(i).getEmail().equals(email)) {
+                    res = miembros.get(i);
+                }
+            }
+        }
+        return res;
+    }
+
+
     public Stakeholder buscarMiembroEmpresa(String emailEmpresa,String emailMiembro) {
         Stakeholder res=null;
         for(int i=0;i<miembros.size();i++){
@@ -167,7 +137,7 @@ public class Master implements Operaciones{
         return res;
     }
 
-    @Override
+
     public Bicycle buscarBicicleta(String emailBiciusuario,String serial) {
         Bicycle bike=null;
         for(int i=0;i<miembros.size();i++){
@@ -177,10 +147,11 @@ public class Master implements Operaciones{
                 }
             }
         }
+        System.out.println(bike.showBicycle());
         return bike;
     }
 
-    @Override
+
     public void addMiembroEmpresa(String emailEmpresa, Stakeholder miembro) {
         for(int i=0;i<miembros.size();i++){
             if(miembros.get(i) instanceof Empresa) {
@@ -192,7 +163,7 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
+
     public void eliminarMiembroEmpresa(String emailEmpresa, String emailUsuario) {
         for(int i=0;i<miembros.size();i++){
             if(miembros.get(i) instanceof Empresa) {
@@ -203,7 +174,7 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
+
     public String mostrarMiembros() {
         String respuesta="";
         for(int i=0;i<miembros.size();i++){
@@ -213,7 +184,7 @@ public class Master implements Operaciones{
         return respuesta;
     }
 
-    @Override
+
     public String mostrarMiembrosEmpresa(String emailEmpresa) {
         String respuesta="";
         for(int i=0;i<miembros.size();i++){
@@ -228,7 +199,7 @@ public class Master implements Operaciones{
     }
 
 
-    @Override
+
     public String mostrarBiciusuarios() {
         String respuesta="Estos son los biciusuarios:\n\n";
         for(int i=0;i<miembros.size();i++){
@@ -240,7 +211,6 @@ public class Master implements Operaciones{
         return respuesta;
     }
 
-    @Override
     public String mostrarEmpresas() {
         String respuesta="Estas son las empresas:\n\n";
         for(int i=0;i<miembros.size();i++){
@@ -252,7 +222,6 @@ public class Master implements Operaciones{
         return respuesta;
     }
 
-    @Override
     public void actualizarNombreEmpresa(String emailEmpresa,String nameNuevo) {
         if(emailEmpresa.equals("")||nameNuevo.equals("")) {
             System.out.println("Los datos no pueden estar vacios");
@@ -267,7 +236,6 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
     public void actualizarEmailEmpresa(String emailEmpresa,String emailNuevo) {
         if(emailEmpresa.equals("")||emailNuevo.equals("")) {
             System.out.println("Los datos no pueden estar vacios");
@@ -282,7 +250,6 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
     public void actualizarPassowordEmpresa(String emailEmpresa,String passwordNuevo) {
         if(emailEmpresa.equals("")||passwordNuevo.equals("")) {
             System.out.println("Los datos no pueden estar vacios");
@@ -297,7 +264,6 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
     public void actualizarDireccionEmpresa(String emailEmpresa,String direccionNueva) {
         if(emailEmpresa.equals("")||direccionNueva.equals("")) {
             System.out.println("Los datos no pueden estar vacios");
@@ -312,7 +278,6 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
     public void actualizarNitEmpresa(String emailEmpresa,String nitNuevo) {
         if(emailEmpresa.equals("")||nitNuevo.equals("")) {
             System.out.println("Los datos no pueden estar vacios");
@@ -327,7 +292,6 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
     public void actualizarNombreBiciusuario(String correo,String nombreNuevo) {
         if(correo.equals("")||nombreNuevo.equals("")) {
             System.out.println("Los datos no pueden estar vacios");
@@ -342,7 +306,6 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
     public void actualizarEmailBiciusuario(String correo,String emailNuevo) {
         if(correo.equals("")||emailNuevo.equals("")) {
             System.out.println("Los datos no pueden estar vacios");
@@ -357,7 +320,6 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
     public void actualizarPasswordBiciusuario(String correo,String claveNueva) {
         if(correo.equals("")||claveNueva.equals("")) {
             System.out.println("Los datos no pueden estar vacios");
@@ -372,7 +334,6 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
     public String validacionDatos(String email, String password) {
         String respuesta="false";
         try{
@@ -393,7 +354,6 @@ public class Master implements Operaciones{
         return respuesta;
     }
 
-    @Override
     public String mostrarBicicletas(String emailBiciusuario) {
         String respuesta="Estas son las bicicletas:\n\n";
         for(int i=0;i<miembros.size();i++){
@@ -407,7 +367,6 @@ public class Master implements Operaciones{
         return respuesta;
     }
 
-    @Override
     public void addViaje(String emailUser,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros) {
         for(int i=0;i<miembros.size();i++){
             if(miembros.get(i) instanceof Biciusuario) {
@@ -422,7 +381,6 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
     public void addRuta(String emailUser, String codigoRuta,String coordenadasIniciales,String coordenadasFinales) {
         for(int i=0;i<miembros.size();i++){
             if(miembros.get(i) instanceof Biciusuario) {
@@ -437,7 +395,6 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
     public void eliminarRuta(String emailUser,String codigoRuta) {
         for(int i=0;i<miembros.size();i++){
             if(miembros.get(i) instanceof Biciusuario) {
@@ -452,7 +409,6 @@ public class Master implements Operaciones{
         }
     }
 
-    @Override
     public String botonPanico(String email, String mensaje) {
         String respuesta="";
         for(int i=0;i<miembros.size();i++){
