@@ -109,7 +109,6 @@ public class AccesoProxy{
                     break;
                 case "mostrarBicicletas":
                     String respuesta = master.mostrarBicicletas(datos[1]);
-                    System.out.println(respuesta);
                     break;
                 case "addViaje":
                     master.addViaje(datos[1],datos[2],datos[3],datos[4],datos[5],datos[6],Integer.parseInt(datos[7]));

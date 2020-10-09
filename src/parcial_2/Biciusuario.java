@@ -97,7 +97,7 @@ public class Biciusuario extends Stakeholder{
     }
 
     public String getBicicletas(){
-        String respuesta="";
+        String respuesta="No tiene bicicletas";
         for(int i=0;i<bicicletas.size();i++){
             Bicycle bici= bicicletas.get(i);
                 respuesta=respuesta+bici.showBicycle();
@@ -111,6 +111,7 @@ public class Biciusuario extends Stakeholder{
         }else {
             Ruta r = new Ruta(coorIni, coorFin, codigo);
             rutas.add(r);
+            System.out.println("Ruta añadida exitosamente!");
         }
     }
 

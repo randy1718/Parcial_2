@@ -3,6 +3,8 @@ package Pruebas;
 import org.junit.jupiter.api.Test;
 import parcial_2.*;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MasterTest {
@@ -178,14 +180,51 @@ class MasterTest {
 
     @Test
     void buscarBicicleta() {
+        Master acceso=Master.laConstructora();
+        Stakeholder user=new Biciusuario("Violette","violette@outlook.com","123qqeQ%5","2002/10/12");
+        acceso.addBiciusuario(user);
+        Bicycle bike=new Bicicleta("87549","rzas","azul");
+        acceso.addBicicleta("violette@outlook.com",bike);
+        Bicycle b=acceso.buscarBicicleta("violette@outlook.com","87549");
+        String serial=b.getSerial();
+        String marca=b.getMarca();
+        String color=b.getColor();
+        assertEquals("87549rzasazul",serial+marca+color);
     }
 
     @Test
     void addMiembroEmpresa() {
+        Master acceso=Master.laConstructora();
+        Stakeholder empresa=new Empresa("Nintendo","nintendo@gmail.com","1231aSAF%$","carrera 8 #109-08","143434356");
+        acceso.addEmpresa(empresa);
+        Stakeholder user=new Biciusuario("Maria","maria@outlook.com","1313qqeQ%4","1992/10/22");
+        acceso.addMiembroEmpresa("nintendo@gmail.com",user);
+        Stakeholder membe=acceso.buscarMiembroEmpresa("nintendo@gmail.com","maria@outlook.com");
+        String name=membe.getNombre();
+        String email=membe.getEmail();
+        String password=membe.getPassword();
+        assertEquals("Mariamaria@outlook.com1313qqeQ%4",name+email+password);
     }
 
     @Test
     void eliminarMiembroEmpresa() {
+        Master acceso=Master.laConstructora();
+        Stakeholder empresa=new Empresa("Ramo","ramo@gmail.com","1231aSAF%$","carrera 8 #109-08","164434356");
+        acceso.addEmpresa(empresa);
+        Stakeholder user=new Biciusuario("Randall","randall@outlook.com","1313qqeQ%4","1992/10/22");
+        acceso.addMiembroEmpresa("ramo@gmail.com",user);
+        Stakeholder miembro1=new Empresa("Bimbo","bimbo@gmail.com","1231aSAF%$","carrera 8 #109-08","134538756");
+        acceso.addMiembroEmpresa("ramo@gmail.com",miembro1);
+        Stakeholder membe=acceso.buscarMiembroEmpresa("ramo@gmail.com","bimbo@gmail.com");
+        String name=membe.getNombre();
+        String email=membe.getEmail();
+        String password=membe.getPassword();
+        assertEquals("Bimbobimbo@gmail.com1231aSAF%$",name+email+password);
+        acceso.eliminarMiembroEmpresa("ramo@gmail.com","bimbo@gmail.com");
+        Stakeholder mu=acceso.buscarMiembroEmpresa("ramo@gmail.com","bimbo@gmail.com");
+        if(mu!=null){
+            fail("No se eliminó correctamente el miembro");
+        }
     }
 
     @Test
@@ -200,14 +239,6 @@ class MasterTest {
         String mostrar=acceso.mostrarMiembrosEmpresa("starbucks@gmail.com");
         assertEquals("Estos son los miembros:\nDatos Biciusuario: \nNombre: Silvia\nEmail: silvia@outlook.com\nFecha de Nacimiento: 1992/10/22\n" +
                 "\n\nDatos Empresa:\nNombre: Tostao\nNit: 987238756\nEmail: tostao@gmail.com\nDireccion: carrera 8 #109-08\n\n",mostrar);
-    }
-
-    @Test
-    void mostrarBiciusuarios() {
-    }
-
-    @Test
-    void mostrarEmpresas() {
     }
 
     @Test
@@ -341,6 +372,15 @@ class MasterTest {
 
     @Test
     void addRuta() {
+        Master acceso=Master.laConstructora();
+        Stakeholder user=new Biciusuario("Rosio","rosio@outlook.com","123qqeQ%4","2002/10/22");
+        acceso.addBiciusuario(user);
+        acceso.addRuta("rosio@outlook.com","118721","85495.1342","21654.132");
+        Ruta rut=acceso.buscarRuta("rosio@outlook.com","118721");
+        String code=rut.getCodigo();
+        String ci=rut.getCoordIniciales();
+        String cf=rut.getCoordFinales();
+        assertEquals("11872185495.134221654.132",code+ci+cf);
     }
 
     @Test
@@ -365,9 +405,15 @@ class MasterTest {
 
     @Test
     void botonPanico() {
-    }
-
-    @Test
-    void getMessages() {
+        Master acceso=Master.laConstructora();
+        Stakeholder movelo=new MoveloAdapter("movelo15","movelo1@movelo.com","12345Q%3");
+        acceso.addMoveloUser(movelo);
+        Stakeholder user=new Biciusuario("Julio","julio@outlook.com","123qqeQ%4","2002/10/22");
+        acceso.addBiciusuario(user);
+        acceso.botonPanico("julio@outlook.com","Auxilio, me robaron, vengan rapido!");
+        ArrayList<Mensaje> mensajes=acceso.getMessages("movelo1@movelo.com","julio@outlook.com");
+        String menn=mensajes.get(0).getMensaje();
+        String ema=mensajes.get(0).getEmailUser();
+        assertEquals("Auxilio, me robaron, vengan rapido!julio@outlook.com",menn+ema);
     }
 }
