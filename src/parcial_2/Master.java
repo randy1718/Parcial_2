@@ -27,11 +27,39 @@ public class Master{
 
 
     public void addBiciusuario(Stakeholder biciusuario) {
-        miembros.add(biciusuario);
+        int contador=0;
+        for(int i=0;i<miembros.size();i++){
+            if(biciusuario.getEmail().equals(miembros.get(i).getEmail()) || biciusuario.getNombre().equals(miembros.get(i).getNombre())){
+                System.out.println("El biciusuario ya existe!");
+            }
+            else{
+                contador++;
+            }
+        }
+        if(contador==miembros.size()){
+            miembros.add(biciusuario);
+        }
+
     }
 
     public void addEmpresa(Stakeholder empresa) {
-        miembros.add(empresa);
+        int contador=0;
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof  Empresa) {
+                if (empresa.getEmail().equals(miembros.get(i).getEmail()) || empresa.getNombre().equals(miembros.get(i).getNombre()) ||((Empresa)empresa).getNit().equals(((Empresa)miembros.get(i)).getNit()) ) {
+                    System.out.println("La empresa ya existe!");
+                }else{
+                    contador++;
+                }
+            }else{
+                contador++;
+            }
+        }
+        if(contador==miembros.size()){
+            miembros.add(empresa);
+            System.out.println("Empresa creada correctamente "+empresa.getNombre());
+        }
+
     }
 
     public void addMoveloUser(Stakeholder movelo) {
@@ -81,6 +109,7 @@ public class Master{
             if(miembros.get(i) instanceof Biciusuario) {
                 if (miembros.get(i).getEmail().equals(emailBiciusuario)) {
                     ((Biciusuario) miembros.get(i)).eliminarBicicleta(serial);
+                    System.out.println("Se borro correctamente la bicicleta"+serial);
                 }
             }
         }
@@ -243,14 +272,18 @@ public class Master{
             for (int i = 0; i < miembros.size(); i++) {
                 if (miembros.get(i) instanceof Empresa) {
                     if (miembros.get(i).getEmail().equals(emailEmpresa)) {
-                        ((Empresa) miembros.get(i)).setEmail(emailNuevo);
+                        if (miembros.get(i).getEmail().equals(emailNuevo)) {
+                            System.out.println("Ese email ya esta registrado para esa empresa");
+                        }else {
+                            ((Empresa) miembros.get(i)).setEmail(emailNuevo);
+                        }
                     }
                 }
             }
         }
     }
 
-    public void actualizarPassowordEmpresa(String emailEmpresa,String passwordNuevo) {
+    public void actualizarPasswordEmpresa(String emailEmpresa,String passwordNuevo) {
         if(emailEmpresa.equals("")||passwordNuevo.equals("")) {
             System.out.println("Los datos no pueden estar vacios");
         }else{
@@ -411,6 +444,38 @@ public class Master{
             }
         }
         return messages;
+    }
+
+    public Viaje buscarViaje(String email,String code){
+        Viaje v=null;
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Biciusuario) {
+                if (miembros.get(i).getEmail().equals(email)) {
+                    v=((Biciusuario) miembros.get(i)).getViaje(code);
+                }
+            }else if(miembros.get(i) instanceof Empresa){
+                if (miembros.get(i).getEmail().equals(email)) {
+                    v=((Empresa) miembros.get(i)).getViaje(code);
+                }
+            }
+        }
+        return v;
+    }
+
+    public Ruta buscarRuta(String email,String code){
+        Ruta v=null;
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof Biciusuario) {
+                if (miembros.get(i).getEmail().equals(email)) {
+                    v=((Biciusuario) miembros.get(i)).getRuta(code);
+                }
+            }else if(miembros.get(i) instanceof Empresa){
+                if (miembros.get(i).getEmail().equals(email)) {
+                    v=((Empresa) miembros.get(i)).getRuta(code);
+                }
+            }
+        }
+        return v;
     }
 
 }

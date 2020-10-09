@@ -115,6 +115,14 @@ public class AccesoProxy{
                     master.addViaje(datos[1],datos[2],datos[3],datos[4],datos[5],datos[6],Integer.parseInt(datos[7]));
                     break;
 
+                case "buscarViaje":
+                    Viaje v=master.buscarViaje(datos[1],datos[2]);
+                    break;
+
+                case "buscarRuta":
+                    Ruta rou=master.buscarRuta(datos[1],datos[2]);
+                    break;
+
                 case "addRuta":
                     master.addRuta(datos[1],datos[2],datos[3],datos[4]);
                     break;
@@ -159,6 +167,14 @@ public class AccesoProxy{
 
                 case "addViaje":
                     master.addViaje(datos[1],datos[2],datos[3],datos[4],datos[5],datos[6],Integer.parseInt(datos[7]));
+                    break;
+
+                case "buscarViaje":
+                    Viaje v=master.buscarViaje(datos[1],datos[2]);
+                    break;
+
+                case "buscarRuta":
+                    Ruta route=master.buscarRuta(datos[1],datos[2]);
                     break;
 
                 case "addRuta":
@@ -207,7 +223,7 @@ public class AccesoProxy{
                     break;
 
                 case "actualizarPassowordEmpresa":
-                    master.actualizarPassowordEmpresa(datos[1], datos[2]);
+                    master.actualizarPasswordEmpresa(datos[1], datos[2]);
                     break;
 
                 case "actualizarDireccionEmpresa":
@@ -296,6 +312,8 @@ public class AccesoProxy{
                 } else {
                     contador++;
                 }
+            }else{
+                contador++;
             }
         }
         if (contador== stakeholders.size()) {
