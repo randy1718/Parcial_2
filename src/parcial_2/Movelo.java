@@ -45,6 +45,16 @@ public class Movelo {
         mensajesEmergencia.add(men);
     }
 
+    public ArrayList<Mensaje> getMensajesEmergencia(String email){
+        ArrayList<Mensaje> messages=new ArrayList<>();
+        for(int i=0;i<mensajesEmergencia.size();i++){
+            if(mensajesEmergencia.get(i).getEmailUser().equals(email)){
+                messages.add(mensajesEmergencia.get(i));
+            }
+        }
+        return messages;
+    }
+
     public void setUsername(String user){
         if(!user.equals("")){
             username=user;
@@ -55,9 +65,9 @@ public class Movelo {
     
     public void setCorreo(String correo){
         if(!correo.equals("")){
-            int arroba=verificarEmail(email);
+            int arroba=verificarEmail(correo);
             if(arroba==1){
-                this.email=email;
+                this.email=correo;
             }
         }else{
             System.out.println("El email nuevo no puede estar vacio!");
@@ -71,6 +81,8 @@ public class Movelo {
             int mayusculas = verificarLetrasMayusculas(clave);
             if(clave.length()>=8 && matcher.find() && mayusculas>=1 ){
                 password=clave;
+            }else{
+                System.out.println("Algo salio mal");
             }
         }else{
             System.out.println("La clave nueva no puede estar vacia!");

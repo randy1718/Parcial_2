@@ -24,7 +24,7 @@ public class Parcial_2 {
 
         access.addMoveloUser("movelo20","movelo@movelo.com","12345Q%3");
         access.addBiciusuario("Alexander", "alexjg@gmail.com", "87!R54321", "2002/08/01");
-        access.addEmpresa("Apple","123456","apple@apple.com","carrera 7 # 34-12","ASDFqw1$");
+        access.addEmpresa("Apple","123453216","apple@apple.com","carrera 7 # 34-12","ASDFqw1$");
         access.addBiciusuario("Randy", "rrandymiller@gmail.com", "123456A$", "2000/09/17");
 
         BigInteger primo=access.validacionDatos("rrandymiller@gmail.com","123456A$");
@@ -38,7 +38,7 @@ public class Parcial_2 {
         access.acceder(primo1,"mostrarMiembrosEmpresa,apple@apple.com");
 
         BigInteger primo2=access.validacionDatos("alexjg@gmail.com", "87!R54321");
-        access.acceder(primo2,"addViaje,alexjg@gmail.com,12345678,1234567,30 minutos,14.5 kilometros por hora,6");
+        access.acceder(primo2,"addViaje,alexjg@gmail.com,123456743,12345678,1234567,30 minutos,14.5 kilometros por hora,6");
 
         BigInteger primo3=access.validacionDatos("movelo@movelo.com","12345Q%3");
         access.acceder(primo3,"mostrarMiembros");

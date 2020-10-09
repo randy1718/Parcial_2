@@ -347,15 +347,15 @@ public class Master{
         return respuesta;
     }
 
-    public void addViaje(String emailUser,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros) {
+    public void addViaje(String emailUser,String code,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros) {
         for(int i=0;i<miembros.size();i++){
             if(miembros.get(i) instanceof Biciusuario) {
                 if (miembros.get(i).getEmail().equals(emailUser)) {
-                    ((Biciusuario) miembros.get(i)).addViaje(coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
+                    ((Biciusuario) miembros.get(i)).addViaje(code,coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
                 }
             }else if(miembros.get(i) instanceof Empresa){
                 if (miembros.get(i).getEmail().equals(emailUser)) {
-                    ((Empresa) miembros.get(i)).addViaje(coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
+                    ((Empresa) miembros.get(i)).addViaje(code,coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
                 }
             }
         }
@@ -399,6 +399,18 @@ public class Master{
             }
         }
         return respuesta;
+    }
+
+    public ArrayList<Mensaje> getMessages(String email, String emailUser){
+        ArrayList<Mensaje> messages=new ArrayList<>();
+        for(int i=0;i<miembros.size();i++){
+            if(miembros.get(i) instanceof  MoveloAdapter) {
+                if (miembros.get(i).getEmail().equals(email)) {
+                    messages =((MoveloAdapter)miembros.get(i)).getMensajes(emailUser);
+                }
+            }
+        }
+        return messages;
     }
 
 }

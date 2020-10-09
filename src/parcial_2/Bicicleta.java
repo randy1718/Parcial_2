@@ -10,7 +10,7 @@ package parcial_2;
  * @author Randy
  */
 public class Bicicleta implements Bicycle {
-    String serial,marca,color;
+    private String serial,marca,color;
     public Bicicleta(String serial, String marca, String color){
         this.serial=serial;
         this.marca=marca;
@@ -24,5 +24,13 @@ public class Bicicleta implements Bicycle {
 
     public String getSerial(){
         return serial;
+    }
+
+    public String getMarca(){
+        return marca;
+    }
+
+    public String getColor(){
+        return color;
     }
 }

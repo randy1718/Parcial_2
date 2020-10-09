@@ -112,7 +112,7 @@ public class AccesoProxy{
                     System.out.println(respuesta);
                     break;
                 case "addViaje":
-                    master.addViaje(datos[1],datos[2],datos[3],datos[4],datos[5],Integer.parseInt(datos[6]));
+                    master.addViaje(datos[1],datos[2],datos[3],datos[4],datos[5],datos[6],Integer.parseInt(datos[7]));
                     break;
 
                 case "addRuta":
@@ -158,7 +158,7 @@ public class AccesoProxy{
             switch (datos[0]) {
 
                 case "addViaje":
-                    master.addViaje(datos[1],datos[2],datos[3],datos[4],datos[5],Integer.parseInt(datos[6]));
+                    master.addViaje(datos[1],datos[2],datos[3],datos[4],datos[5],datos[6],Integer.parseInt(datos[7]));
                     break;
 
                 case "addRuta":
@@ -256,6 +256,9 @@ public class AccesoProxy{
                     String companies=master.mostrarEmpresas();
                     break;
 
+                case "getMessages":
+                    ArrayList<Mensaje> messages=master.getMessages(datos[1], datos[2]);
+                    break;
             }
         }else{
             System.out.println("No tiene acceso!");
@@ -284,17 +287,20 @@ public class AccesoProxy{
     public void addEmpresa(String nombre, String nit, String email, String direccion, String password) {
         int contador = 0;
         for(int i=0;i<stakeholders.size();i++){
-            if(stakeholders.get(i).getEmail().equals(email) && stakeholders.get(i).getNombre().equals(nombre)){
-                System.out.println("La empresa ya esta registrado");
-            }else if(stakeholders.get(i).getNombre().equals(nombre) || stakeholders.get(i).getEmail().equals(email)){
-                System.out.println("El email o el nombre de la empresa ya estan registrados");
-            }else{
-                contador++;
+            if(stakeholders.get(i) instanceof Empresa) {
+                Empresa ceo= (Empresa) stakeholders.get(i);
+                if (ceo.getEmail().equals(email) && ceo.getNombre().equals(nombre)) {
+                    System.out.println("La empresa ya esta registrado");
+                } else if (ceo.getNombre().equals(nombre) || ceo.getEmail().equals(email) || ceo.getNit().equals(nit)) {
+                    System.out.println("El email o el nombre de la empresa ya estan registrados");
+                } else {
+                    contador++;
+                }
             }
         }
         if (contador== stakeholders.size()) {
             Master master=Master.laConstructora();
-            Empresa company=new Empresa(nombre,email,password,direccion,nit);
+            Stakeholder company=new Empresa(nombre,email,password,direccion,nit);
             stakeholders.add(company);
             master.addEmpresa(company);
         }

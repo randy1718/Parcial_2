@@ -137,11 +137,26 @@ public class Biciusuario extends Stakeholder{
         }
     }
 
-    public void addViaje(String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros){
-        Viaje travel=new Viaje(coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
+    public void addViaje(String codigoViaje,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros){
+        Viaje travel=new Viaje(codigoViaje,coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
         viajes.add(travel);
         arboles=arboles+distanciaKilometros;
         System.out.println("El usuario "+getNombre()+" obtiene "+distanciaKilometros+" arboles por este viaje!");
+    }
+
+    public Viaje getViaje(String codigo){
+        Viaje respuesta=null;
+        try{
+            for(int i=0;i<viajes.size();i++){
+                if(viajes.get(i).getCodigo().equals(codigo)){
+                    respuesta=viajes.get(i);
+                }
+            }
+        }catch (Exception e){
+
+        }
+
+        return respuesta;
     }
 
     @Override

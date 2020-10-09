@@ -5,8 +5,8 @@ import java.util.Date;
 
 public class Mensaje {
 
-    String emailUser="",mensaje="",ubicacion="";
-    String date="";
+    private String emailUser="",mensaje="",ubicacion="";
+    private String date="";
 
     SimpleDateFormat formatter;
 
@@ -25,5 +25,18 @@ public class Mensaje {
         System.out.println(date);
         return date;
     }
+
+    public String getEmailUser(){
+        return emailUser;
+    }
+
+    public String getMensaje(){
+        return mensaje;
+    }
+
+    public String mostrarDatos(){
+        return "Mensaje:\nEmail usuario: "+emailUser+"\nMensaje: "+mensaje+"\nFecha: "+date;
+    }
+
 
 }

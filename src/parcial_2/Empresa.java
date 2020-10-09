@@ -32,7 +32,7 @@ public class Empresa extends Stakeholder{
         int arroba=verificarCorreo(email);
         int numeros=verificarNumeros(password);
         
-        if(password.length()>=8 && matcher.find() && mayusculas>=1 && arroba==1 && numeros>=1 && !email.equals("") && !nombre.equals("")){
+        if(password.length()>=8 && matcher.find() && mayusculas>=1 && arroba==1 && numeros>=1 && !email.equals("") && !nombre.equals("") && nit.length()==9){
            name=nombre;
            this.password=password;
            this.email=email;
@@ -95,14 +95,46 @@ public class Empresa extends Stakeholder{
         for(int i=0;i<rutas.size();i++){
             if(rutas.get(i).getCodigo().equals(codigo)){
                 rutas.remove(rutas.get(i));
+                System.out.println("La ruta se borro correctamente!");
             }
         }
     }
 
-    public void addViaje(String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros){
-        Viaje travel=new Viaje(coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
+    public Ruta getRuta(String codigo){
+        Ruta respuesta=null;
+        try{
+            for(int i=0;i<rutas.size();i++){
+                if(rutas.get(i).getCodigo().equals(codigo)){
+                    respuesta=rutas.get(i);
+                }
+            }
+        }catch (Exception e){
+
+        }
+
+        return respuesta;
+    }
+
+    public void addViaje(String code,String coordenadasIniciales,String coordenadasFinales,String duracion,String velocidad, int distanciaKilometros){
+        Viaje travel=new Viaje(code,coordenadasIniciales,coordenadasFinales,duracion,velocidad,distanciaKilometros);
         viajes.add(travel);
         arboles=arboles+distanciaKilometros;
+        System.out.println("La empresa "+getNombre()+" obtiene "+distanciaKilometros+" arboles por este viaje!");
+    }
+
+    public Viaje getViaje(String codigo){
+        Viaje respuesta=null;
+        try{
+            for(int i=0;i<viajes.size();i++){
+                if(viajes.get(i).getCodigo().equals(codigo)){
+                    respuesta=viajes.get(i);
+                }
+            }
+        }catch (Exception e){
+
+        }
+
+        return respuesta;
     }
 
     @Override

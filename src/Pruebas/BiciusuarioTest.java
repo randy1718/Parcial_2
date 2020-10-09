@@ -1,10 +1,7 @@
 package Pruebas;
 
 import org.junit.jupiter.api.Test;
-import parcial_2.Bicicleta;
-import parcial_2.Biciusuario;
-import parcial_2.Bicycle;
-import parcial_2.Ruta;
+import parcial_2.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -132,12 +129,32 @@ class BiciusuarioTest {
 
     @Test
     void eliminarRuta(){
-
+        Biciusuario user=new Biciusuario("Juan jose","jose@gmail.com","AERqw12$#","2000/12/12");
+        user.addRuta("12345","12354.56789","12345.23456");
+        Ruta r=user.getRuta("12345");
+        String code=r.getCodigo();
+        String cI=r.getCoordIniciales();
+        String cF=r.getCoordFinales();
+        assertEquals("1234512354.5678912345.23456",code+cI+cF);
+        user.eliminarRuta("12345");
+        Ruta rou=user.getRuta("12345");
+        if(rou!=null){
+            fail("La ruta no se borró correctamente!");
+        }
     }
 
     @Test
     void addViaje(){
-
+        Biciusuario user=new Biciusuario("Juan jose","jose@gmail.com","AERqw12$#","2000/12/12");
+        user.addViaje("9632412","123.13456","3456.4567","30 minutos","100 km/h",10);
+        Viaje v=user.getViaje("9632412");
+        String codigo=v.getCodigo();
+        String ci=v.getCoordenadasIniciales();
+        String cf=v.getCoordenadasFinales();
+        String velocidad=v.getVelocidad();
+        int distancia=v.getDistancia();
+        int arboles=v.getArbolesObtenidos();
+        assertEquals("9632412123.134563456.456710100 km/h10",codigo+ci+cf+distancia+velocidad+arboles);
     }
 
     @Test

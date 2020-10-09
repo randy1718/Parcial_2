@@ -5,6 +5,8 @@
  */
 package parcial_2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Randy
@@ -26,6 +28,10 @@ public class MoveloAdapter extends Stakeholder{
 
     public void addMensaje(String emailUser, String mensaje){
         this.movelo.addMensajesEmergencia(emailUser,mensaje);
+    }
+
+    public ArrayList<Mensaje> getMensajes(String emailUser){
+        return this.movelo.getMensajesEmergencia(emailUser);
     }
 
     @Override
